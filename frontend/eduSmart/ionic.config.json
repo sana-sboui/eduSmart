@@ -1,0 +1,7 @@
+{
+  "name": "eduSmart",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
