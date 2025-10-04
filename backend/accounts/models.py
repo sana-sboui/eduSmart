@@ -3,10 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     id = models.AutoField(primary_key=True)
-    username = None
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True,null=False)
     tel = models.CharField(max_length=15)
-    
     ROLE_CHOICES = [
         ('ADMIN', 'Admin'),
         ('ENSEIGNANT', 'Enseignant'),
@@ -14,8 +12,8 @@ class User(AbstractUser):
     ]
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
 
-    REQUIRED_FIELDS = ["first_name", "last_name"]
-    USERNAME_FIELD = "email" 
+    REQUIRED_FIELDS = ["first_name", "last_name","email"]
+    USERNAME_FIELD = "username" 
 
 class Student(User):
     group = models.ForeignKey("group.Group", on_delete=models.SET_NULL, null=True, blank=True)
