@@ -142,4 +142,26 @@ export class Auth {
       this.refreshTimer = null;
     }
   }
+
+  //user logged in
+  getLoggedInUser(): User | null {
+    const token = this.getToken();
+    if (!token) return null;
+    console.log(token);
+    try {
+      const decoded: any = jwtDecode(token);
+      const user: User = {
+        id: decoded.user_id,
+        username: decoded.username,
+        role: decoded.role,
+        email: decoded.email,
+      };
+      console.log('user', user);
+      this.currentUserSubject.next(user);
+      return user;
+    } catch (error) {
+      console.error('Error decoding token', error);
+      return null;
+    }
+  }
 }

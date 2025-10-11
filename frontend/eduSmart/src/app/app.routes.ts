@@ -41,4 +41,13 @@ export const routes: Routes = [
         (m) => m.UpdateTeacherPage
       ),
   },
+  {
+    path: 'chat-group/:id',
+    loadComponent: () =>
+      import('./chat-group/chat-group.page').then((m) => m.ChatGroupPage),
+  },  {
+    path: 'video-call',
+    loadComponent: () => import('./video-call/video-call.page').then( m => m.VideoCallPage)
+  },
+
 ];
