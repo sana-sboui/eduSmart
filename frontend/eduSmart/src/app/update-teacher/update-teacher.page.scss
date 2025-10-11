@@ -1,0 +1,285 @@
+/* Header Styling */
+ion-toolbar {
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-primary-contrast);
+
+  ion-title {
+    font-weight: 600;
+    font-size: 18px;
+  }
+}
+
+.back-button {
+  --color: var(--ion-color-primary-contrast);
+}
+
+/* Content Layout */
+.form-content {
+  --background: var(--ion-background-color);
+}
+
+.form-section {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 16px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f1f5f9;
+}
+
+/* Section Titles */
+.section-title {
+  display: block;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ion-color-primary);
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e2e8f0;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--ion-color-primary);
+  }
+}
+
+/* Input Groups */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Input Styling */
+.input-item {
+  --background: #ffffff;
+  --border-radius: 12px;
+  --inner-padding-end: 0;
+  --padding-start: 0;
+
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+
+  /* Remove default Ionic styles */
+  --border-width: 0;
+  --inner-border-width: 0;
+  --show-full-highlight: false;
+  --show-inset-highlight: false;
+  --highlight-height: 0;
+
+  &.item-has-focus,
+  &:focus-within {
+    border-color: var(--ion-color-primary);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    transform: translateY(-1px);
+  }
+
+  &.item-has-value {
+    border-color: #cbd5e1;
+  }
+}
+
+.input-icon {
+  color: #94a3b8;
+  font-size: 20px;
+  margin: 0 12px 0 16px;
+  transition: color 0.3s ease;
+}
+
+.input-item.item-has-focus .input-icon {
+  color: var(--ion-color-primary);
+}
+
+.custom-input {
+  --padding-start: 0;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ion-text-color);
+
+  &::part(native) {
+    padding-left: 0;
+  }
+}
+
+ion-input::placeholder {
+  color: var(--ion-placeholder-color);
+  font-weight: 400;
+  opacity: 1;
+}
+
+/* Name Row Layout */
+.name-row {
+  display: flex;
+  gap: 12px;
+
+  .half {
+    flex: 1;
+  }
+
+  @media (max-width: 360px) {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+/* Submit Button */
+.submit-button {
+  --border-radius: 12px;
+  --box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);
+
+  margin: 32px 0 20px 0;
+  height: 56px;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  ion-icon {
+    font-size: 20px;
+  }
+
+  &:hover {
+    --box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced Focus States */
+ion-item:focus-within {
+  --border-width: 0;
+  --highlight-height: 0;
+}
+
+/* Smooth animations */
+* {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .form-section {
+    margin: 12px 0;
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .section-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .submit-button {
+    margin: 24px 0 16px 0;
+    height: 52px;
+  }
+}
+
+/* Style the datetime button to match your input fields */
+.custom-datetime-button::part(native) {
+  background: transparent;
+  border: none;
+  padding: 12px 0;
+  width: 100%;
+  text-align: left;
+  color: var(--ion-text-color);
+  font-size: 16px;
+}
+
+/* Style the modal backdrop and content */
+.custom-date-modal {
+  --height: auto;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.custom-date-modal::part(content) {
+  border-radius: 12px;
+}
+
+/* Style the datetime picker */
+.custom-datetime {
+  --background: white;
+  --background-rgb: 255, 255, 255;
+  --wheel-highlight-background: var(--ion-color-primary);
+  --wheel-fade-background-rgb: 255, 255, 255;
+}
+
+/* Customize the header */
+.custom-datetime::part(header) {
+  background: var(--ion-color-primary);
+  color: white;
+  padding: 16px;
+}
+
+.custom-datetime::part(header-cell) {
+  color: white;
+  font-weight: 600;
+}
+
+/* Style the calendar days */
+.custom-datetime::part(calendar-day) {
+  color: var(--ion-text-color);
+  font-size: 14px;
+}
+
+.custom-datetime::part(calendar-day today) {
+  color: var(--ion-color-primary);
+  font-weight: bold;
+}
+
+.custom-datetime::part(calendar-day active) {
+  background: var(--ion-color-primary);
+  color: white;
+  border-radius: 50%;
+}
+
+/* Style the time picker wheels */
+.custom-datetime::part(wheel-item) {
+  color: var(--ion-text-color);
+  font-size: 18px;
+}
+
+.custom-datetime::part(wheel-item active) {
+  color: var(--ion-color-primary-contrast);
+  font-weight: 500;
+}
+
+/* Style the buttons */
+.custom-datetime::part(button) {
+  color: var(--ion-color-primary);
+  font-weight: 600;
+}
+
+.custom-datetime::part(button):hover {
+  background: rgba(var(--ion-color-primary-rgb), 0.1);
+}
+
+/* Date preview text */
+.date-preview {
+  font-size: 14px;
+  margin-top: 8px;
+  display: block;
+}
