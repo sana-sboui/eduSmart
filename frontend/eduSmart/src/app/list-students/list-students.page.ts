@@ -50,12 +50,7 @@ export class ListStudentsPage {
   ) {}
 
   ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state?.['reload']) {
-      this.loadStudents();
-    } else {
-      this.loadStudents();
-    }
+    this.loadStudents();
   }
 
   loadStudents() {

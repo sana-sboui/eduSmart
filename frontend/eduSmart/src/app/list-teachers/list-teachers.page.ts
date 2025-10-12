@@ -54,12 +54,7 @@ export class ListTeachersPage {
   ) {}
 
   ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state?.['reload']) {
-      this.loadTeachers();
-    } else {
-      this.loadTeachers();
-    }
+    this.loadTeachers();
   }
 
   loadTeachers() {

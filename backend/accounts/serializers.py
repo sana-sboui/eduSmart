@@ -50,7 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'username', 'first_name', 'last_name', 'email','tel', 'date_of_birth', 'role',
+            'id','username', 'first_name', 'last_name', 'email','tel', 'date_of_birth', 'role',
         ]
         read_only_fields = ['username', 'role']
     def get_profile_picture(self, obj):
