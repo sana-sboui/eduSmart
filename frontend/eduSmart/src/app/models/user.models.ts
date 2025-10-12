@@ -6,6 +6,8 @@ export interface User {
   password?:string;
   email?: string;
   tel?: string;
+  date_of_birth?:string;
+  profile_picture?:string;
   role: 'ADMIN' | 'ENSEIGNANT' | 'ETUDIANT';
 }
 export interface AuthResponse {
