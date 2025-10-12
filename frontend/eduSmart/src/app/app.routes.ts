@@ -40,5 +40,9 @@ export const routes: Routes = [
       import('./update-teacher/update-teacher.page').then(
         (m) => m.UpdateTeacherPage
       ),
+  },  {
+    path: 'list-students',
+    loadComponent: () => import('./list-students/list-students.page').then( m => m.ListStudentsPage)
   },
+
 ];
