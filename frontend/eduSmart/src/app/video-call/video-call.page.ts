@@ -51,4 +51,10 @@ export class VideoCallPage {
   //     this.api.dispose();
   //   }
   // }
+  ngOnInit() {
+    const domain = 'meet.jit.si';
+    const roomName = 'MyFreeVideoRoom123'; // any random name
+    const iframe = document.getElementById('jitsiFrame') as HTMLIFrameElement;
+    iframe.src = `https://${domain}/${roomName}#userInfo.displayName="Ionic User"`;
+  }
 }

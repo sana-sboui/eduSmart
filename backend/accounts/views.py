@@ -24,7 +24,10 @@ class LoginView(generics.GenericAPIView):
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
                 'username': user.username,
-                'role': user.role
+                'role': user.role,
+                'profile_picture':user.profile_picture,
+                'last_name':user.last_name,
+                'first_name':user.first_name
             })
         return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 

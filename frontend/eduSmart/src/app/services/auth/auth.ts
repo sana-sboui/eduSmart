@@ -47,14 +47,36 @@ export class Auth {
         tap((res) => {
           localStorage.setItem('access_token', res.access);
           localStorage.setItem('refresh_token', res.refresh);
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              username: res.username,
+              role: res.role,
+              last_name: res.last_name,
+              first_name: res.first_name,
+              profile_picture: res.profile_picture,
+            })
+          );
           this.currentUserSubject.next({
             username: res.username,
             role: res.role,
+            last_name: res.last_name,
+            first_name: res.first_name,
+            profile_picture: res.profile_picture,
           });
+
           // Schedule automatic refresh before expiry
           this.scheduleTokenRefresh(res.access);
         })
       );
+  }
+
+  getCurrentUser() {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      return user;
+    }
   }
 
   logout() {
@@ -152,7 +174,7 @@ export class Auth {
       const decoded: any = jwtDecode(token);
       const user: User = {
         id: decoded.user_id,
-        username: decoded.username,
+        username: this.currentUserSubject.value?.username!,
         role: decoded.role,
         email: decoded.email,
       };

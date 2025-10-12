@@ -5,7 +5,7 @@ class User(AbstractUser):
     id = models.AutoField(primary_key=True)
     email = models.EmailField(unique=True,null=False)
     tel = models.CharField(max_length=15)
-    #profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     ROLE_CHOICES = [
         ('ADMIN', 'Admin'),
