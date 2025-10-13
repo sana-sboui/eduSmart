@@ -3,8 +3,9 @@ export interface User {
   username: string;
   first_name?: string;
   last_name?: string;
-  password?:string;
+  password?: string;
   email?: string;
+  date_of_birth?: string;
   tel?: string;
   date_of_birth?: Date;
   status?: string;

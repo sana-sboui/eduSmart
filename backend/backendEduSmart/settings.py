@@ -57,9 +57,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8100",      
 ]
+
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+    'accept',
+    'origin',
+]
+
 
 ROOT_URLCONF = 'backendEduSmart.urls'
 
@@ -145,3 +154,12 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+#Email config 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ''       
+EMAIL_HOST_PASSWORD = ''      # use App Password (not your Gmail password!)
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

@@ -33,6 +33,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('email', models.EmailField(max_length=254, unique=True)),
                 ('tel', models.CharField(max_length=15)),
+                ('date_of_birth', models.DateField(blank=True, null=True)),
                 ('role', models.CharField(choices=[('ADMIN', 'Admin'), ('ENSEIGNANT', 'Enseignant'), ('ETUDIANT', 'Etudiant')], max_length=10)),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),
@@ -66,6 +67,7 @@ class Migration(migrations.Migration):
             name='Student',
             fields=[
                 ('user_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('status', models.CharField(choices=[('STUDENT', 'Student'), ('EMPLOYEE', 'Employee'), ('OTHER', 'Other')], default='STUDENT', max_length=20)),
                 ('group', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='group.group')),
             ],
             options={

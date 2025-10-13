@@ -1,0 +1,218 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" class="back-button"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="page-title">Update Teacher Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding form-content">
+  <!-- Profile Information -->
+  <div class="form-section">
+    <ion-label class="section-title">Profile Information</ion-label>
+
+    <div class="input-group">
+      <ion-label class="input-label">Username</ion-label>
+      <ion-item class="input-item">
+        <ion-icon
+          slot="start"
+          name="person-outline"
+          class="input-icon"
+        ></ion-icon>
+        <ion-input
+          name="username"
+          [(ngModel)]="teacher.username"
+          placeholder="Choose a unique username"
+          class="custom-input"
+          readonly
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">First Name</ion-label>
+      <ion-item class="input-item">
+        <ion-icon
+          slot="start"
+          name="person-outline"
+          class="input-icon"
+        ></ion-icon>
+        <ion-input
+          name="first_name"
+          [(ngModel)]="teacher.first_name"
+          placeholder="First name"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Last Name</ion-label>
+      <ion-item class="input-item">
+        <ion-icon
+          slot="start"
+          name="person-outline"
+          class="input-icon"
+        ></ion-icon>
+        <ion-input
+          name="last_name"
+          [(ngModel)]="teacher.last_name"
+          placeholder="Last name"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Date Of Birth</ion-label>
+      <ion-item class="input-item">
+        <ion-icon
+          slot="start"
+          name="calendar-outline"
+          class="input-icon"
+        ></ion-icon>
+        <ion-datetime-button
+          datetime="dob"
+          class="custom-datetime-button"
+        ></ion-datetime-button>
+      </ion-item>
+
+      <ion-modal [keepContentsMounted]="true" class="custom-date-modal">
+        <ng-template>
+          <ion-datetime
+            id="dob"
+            presentation="date"
+            [max]="maxDate"
+            (ionChange)="onDateChange($event)"
+            class="custom-datetime"
+            [(ngModel)]="teacher.date_of_birth"
+            name="date_of_birth"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+
+      <ion-text
+        color="medium"
+        *ngIf="teacher.date_of_birth"
+        class="date-preview"
+      >
+        You picked: {{ teacher.date_of_birth | date: 'fullDate' }}
+      </ion-text>
+    </div>
+  </div>
+
+  <!-- Contact Details -->
+  <div class="form-section">
+    <ion-label class="section-title">Contact Details</ion-label>
+
+    <div class="input-group">
+      <ion-label class="input-label">Email Address</ion-label>
+      <ion-item class="input-item">
+        <ion-icon
+          slot="start"
+          name="mail-outline"
+          class="input-icon"
+        ></ion-icon>
+        <ion-input
+          name="email"
+          type="email"
+          [(ngModel)]="teacher.email"
+          placeholder="email@example.com"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Phone Number</ion-label>
+      <ion-item class="input-item">
+        <ion-icon
+          slot="start"
+          name="call-outline"
+          class="input-icon"
+        ></ion-icon>
+        <ion-input
+          name="tel"
+          type="tel"
+          [(ngModel)]="teacher.tel"
+          placeholder="+1 (555) 000-0000"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+  </div>
+
+  <!-- Security -->
+  <div class="form-section">
+    <ion-label class="section-title">Security</ion-label>
+
+    <div class="input-group">
+      <ion-label class="input-label">Password</ion-label>
+      <ion-item class="input-item">
+        <ion-icon
+          slot="start"
+          name="lock-closed-outline"
+          class="input-icon"
+        ></ion-icon>
+        <ion-input
+          name="password"
+          type="password"
+          [(ngModel)]="teacher.password"
+          placeholder="Create a strong password"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Confirm Password</ion-label>
+      <ion-item class="input-item">
+        <ion-icon
+          slot="start"
+          name="lock-closed-outline"
+          class="input-icon"
+        ></ion-icon>
+        <ion-input
+          name="confirm_password"
+          type="password"
+          [(ngModel)]="confirm_password"
+          placeholder="Re-enter your password"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+  </div>
+
+  <!-- Professional Details -->
+  <div class="form-section">
+    <ion-label class="section-title">Professional Details</ion-label>
+
+    <div class="input-group">
+      <ion-label class="input-label">Speciality</ion-label>
+      <ion-item class="input-item">
+        <ion-icon
+          slot="start"
+          name="school-outline"
+          class="input-icon"
+        ></ion-icon>
+        <ion-input
+          name="speciality"
+          [(ngModel)]="teacher.speciality"
+          placeholder="e.g., Mathematics, Science, History"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+  </div>
+
+  <ion-button
+    expand="block"
+    color="primary"
+    (click)="updateTeacher()"
+    class="submit-button"
+  >
+    <ion-icon slot="start" name="save-outline"></ion-icon>
+    Update Teacher Account
+  </ion-button>
+</ion-content>
