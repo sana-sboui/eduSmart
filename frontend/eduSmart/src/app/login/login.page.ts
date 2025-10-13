@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonButton, IonInput } from '@ionic/angular/standalone';
+import { IonCard, IonCardHeader, IonCardContent, IonTitle, IonSegment, IonSegmentButton, IonLabel, IonButton, IonHeader, IonToolbar, IonContent, IonItem } from '@ionic/angular/standalone';
 import { Auth } from '../services/auth/auth';
 import { Router } from '@angular/router';
 
@@ -11,8 +11,9 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonLabel, IonButton,IonInput]
+  imports: [CommonModule, FormsModule, IonCard, IonCardHeader, IonCardContent, IonTitle, IonSegment, IonSegmentButton, IonLabel, IonButton, IonHeader, IonToolbar, IonContent, IonItem]
 })
+
 export class LoginPage  {
 
   username: string = '';

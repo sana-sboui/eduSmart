@@ -1,0 +1,207 @@
+ion-segment-button::part(indicator-background) {
+  background: #00617a;
+}
+
+/* Material Design styles */
+ion-segment-button.md::part(native) {
+  color: #000;
+}
+
+.segment-button-checked.md::part(native) {
+  color: #00617a;
+}
+
+ion-segment-button.md::part(indicator-background) {
+  height: 4px;
+}
+
+/* iOS styles */
+ion-segment-button.ios::part(native) {
+  color: #00617a;
+}
+
+.segment-button-checked.ios::part(native) {
+  color: #fff;
+}
+
+ion-segment-button.ios::part(indicator-background) {
+  border-radius: 20px;
+}
+
+.create-account-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 2rem;
+  }
+
+  h1 {
+    font-weight: 700;
+    color: #00617a;
+  }
+
+  .subtitle {
+    color: #2b7b8e;
+    margin-bottom: 2rem;
+  }
+
+  ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 1rem;
+  }
+
+
+  ion-input {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    --padding-start: 10px;
+    font-size: 15px;
+  }
+
+  .terms {
+    font-size: 13px;
+    color: #718096;
+    margin-top: 1.5rem;
+  }
+
+  .terms a {
+    color: #0c8599;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+ion-content {
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+  height: 100%;   
+}
+
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    margin-top: 7rem;
+}
+
+.logo {
+    width: 300px;       
+    height: auto;
+    border-radius: 12px; 
+}
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+ion-card.card {
+  width: 90%;
+  max-width: 400px;
+  max-height: 60vh; 
+  overflow-y: auto; 
+  scrollbar-width: thin; 
+}
+
+ion-card.card::-webkit-scrollbar {
+  width: 6px;
+}
+ion-card.card::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+
+
+/* Style the datetime button to match your input fields */
+.custom-datetime-button::part(native) {
+  background: transparent;
+  border: none;
+  padding: 12px 0;
+  width: 100%;
+  text-align: left;
+  color: var(--ion-text-color);
+  font-size: 16px;
+}
+
+/* Style the modal backdrop and content */
+.custom-date-modal {
+  --height: auto;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.custom-date-modal::part(content) {
+  border-radius: 12px;
+}
+
+/* Style the datetime picker */
+.custom-datetime {
+  --background: white;
+  --background-rgb: 255, 255, 255;
+  --wheel-highlight-background: var(--ion-color-primary);
+  --wheel-fade-background-rgb: 255, 255, 255;
+}
+
+/* Customize the header */
+.custom-datetime::part(header) {
+  background: var(--ion-color-primary);
+  color: white;
+  padding: 16px;
+}
+
+.custom-datetime::part(header-cell) {
+  color: white;
+  font-weight: 600;
+}
+
+/* Style the calendar days */
+.custom-datetime::part(calendar-day) {
+  color: var(--ion-text-color);
+  font-size: 14px;
+}
+
+.custom-datetime::part(calendar-day today) {
+  color: var(--ion-color-primary);
+  font-weight: bold;
+}
+
+.custom-datetime::part(calendar-day active) {
+  background: var(--ion-color-primary);
+  color: white;
+  border-radius: 50%;
+}
+
+/* Style the time picker wheels */
+.custom-datetime::part(wheel-item) {
+  color: var(--ion-text-color);
+  font-size: 18px;
+}
+
+.custom-datetime::part(wheel-item active) {
+  color: var(--ion-color-primary-contrast);
+  font-weight: 500;
+}
+
+/* Style the buttons */
+.custom-datetime::part(button) {
+  color: var(--ion-color-primary);
+  font-weight: 600;
+}
+
+.custom-datetime::part(button):hover {
+  background: rgba(var(--ion-color-primary-rgb), 0.1);
+}
+
+/* Date preview text */
+.date-preview {
+  font-size: 14px;
+  margin-top: 8px;
+  display: block;
+}
