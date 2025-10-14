@@ -37,7 +37,6 @@ import { Auth } from 'src/app/services/auth/auth';
     IonIcon,
     RouterModule,
     IonMenuToggle,
-    IonBadge,
   ],
 })
 export class MenuComponent {
@@ -73,6 +72,23 @@ export class MenuComponent {
       roles: ['ETUDIANT'],
     },
   ];
+
+  accountPages = [
+    { title: 'Home', url: '/home', icon: 'home' },
+    { title: 'Students', url: '/students', icon: 'people', roles: ['ADMIN'] },
+    {
+      title: 'Teachers',
+      url: '/teachers',
+      icon: 'school',
+      roles: ['ETUDIANT'],
+    },
+  ];
+
+  get filteredAccounts() {
+    return this.accountPages.filter(
+      (page) => !page.roles || page.roles.includes(this.user.role)
+    );
+  }
 
   get filteredPages() {
     return this.appPages.filter(
