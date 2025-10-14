@@ -49,5 +49,9 @@ export const routes: Routes = [
     path: 'video-call',
     loadComponent: () => import('./video-call/video-call.page').then( m => m.VideoCallPage)
   },
+  {
+    path: 'auth',
+    loadComponent: () => import('./auth/auth.page').then( m => m.AuthPage)
+  },
 
 ];
