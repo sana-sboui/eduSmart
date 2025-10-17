@@ -33,6 +33,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('email', models.EmailField(max_length=254, unique=True)),
                 ('tel', models.CharField(max_length=15)),
+                ('profile_picture', models.ImageField(blank=True, null=True, upload_to='profiles/')),
                 ('date_of_birth', models.DateField(blank=True, null=True)),
                 ('role', models.CharField(choices=[('ADMIN', 'Admin'), ('ENSEIGNANT', 'Enseignant'), ('ETUDIANT', 'Etudiant')], max_length=10)),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),

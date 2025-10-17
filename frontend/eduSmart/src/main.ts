@@ -12,21 +12,18 @@ import {
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import {
-  HttpClient,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { registerIcons } from './app/icons.config';
 import { authInterceptor } from './app/interceptors/auth-interceptor';
-
-registerIcons();
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+registerIcons(); 
+defineCustomElements(window);
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor])), 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular({
-      mode: 'ios', // Force iOS mode globally
+      mode: 'ios', 
     }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
   ],

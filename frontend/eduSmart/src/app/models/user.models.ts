@@ -7,7 +7,7 @@ export interface User {
   email?: string;
   date_of_birth?: string;
   tel?: string;
-  date_of_birth?: Date;
+  profile_picture?:string;
   status?: string;
   role: 'ADMIN' | 'ENSEIGNANT' | 'ETUDIANT';
 }

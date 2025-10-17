@@ -1,0 +1,250 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleEditMode()" class="edit-button">
+        <ion-icon 
+          [name]="isEditing ? 'checkmark-outline' : 'create-outline'" 
+          slot="icon-only"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="profile-page">
+  <!-- Profile Header -->
+  
+<div class="profile-header">
+    <div class="avatar-container">
+     <div class="avatar" (click)="isEditing ? presentActionSheet() : null" [class.editable]="isEditing">
+      <img *ngIf="isEditing ? editProfile?.profile_picture : profile?.profile_picture"
+      [src]="isEditing ? editProfile?.profile_picture : profile?.profile_picture"
+      alt="avatar">
+      <span *ngIf="!profile.profile_picture">{{ getInitials() }}</span>
+</div>
+    </div>
+    <h2 class="name" *ngIf="!isEditing">{{ profile?.first_name }} {{ profile?.last_name }}</h2>
+    
+   
+    <div class="role">
+      <ion-icon name="school-outline"></ion-icon>
+      <span>{{ profile.role || 'Teacher' }}</span>
+    </div>
+  </div>
+  <!-- Stats Section -->
+  <div class="stats-container">
+  <div class="stat-box">
+    <ion-icon name="book-outline" class="stat-icon"></ion-icon>
+    <h3>{{ 24 }}</h3>
+    <p>Classes</p>
+  </div>
+  <div class="stat-box">
+    <ion-icon name="people-outline" class="stat-icon"></ion-icon>
+    <h3>{{ 156 }}</h3>
+    <p>Students</p>
+  </div>
+  <div class="stat-box">
+    <ion-icon name="star-outline" class="stat-icon"></ion-icon>
+    <h3>{{ 4.8 }}</h3>
+    <p>Rating</p>
+  </div>
+</div>
+
+  <!-- Profile Information Section -->
+  <div class="form-section">
+    <div class="section-header">
+    <div class="section-line"></div>
+    <ion-label class="section-title">Personal Information</ion-label>
+  </div>
+  <!-- First + Last name -->
+   <div class="name-row" *ngIf="isEditing">
+      <div class="half">
+        <ion-label class="input-label">First Name</ion-label>
+        <ion-item class="input-item">
+          <ion-icon slot="start" name="person-outline" class="input-icon"></ion-icon>
+          <ion-input
+            name="first_name"
+            [(ngModel)]="editProfile.first_name"
+            placeholder="First name"
+            class="custom-input"
+          ></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="half">
+        <ion-label class="input-label">Last Name</ion-label>
+        <ion-item class="input-item">
+          <ion-icon slot="start" name="person-outline" class="input-icon"></ion-icon>
+          <ion-input
+            name="last_name"
+            [(ngModel)]="editProfile.last_name"
+            placeholder="Last name"
+            class="custom-input"
+          ></ion-input>
+        </ion-item>
+      </div>
+    </div>
+    <!-- Username -->
+    <div class="input-group">
+      <ion-label class="input-label">Username</ion-label>
+      <ion-item class="input-item" *ngIf="!isEditing">
+        <ion-icon slot="start" name="person-outline" class="input-icon"></ion-icon>
+        <ion-text>{{ profile?.username || 'johnsmith' }}</ion-text>
+      </ion-item>
+      <ion-item class="input-item" *ngIf="isEditing">
+        <ion-icon slot="start" name="person-outline" class="input-icon"></ion-icon>
+        <ion-input
+          name="username"
+          [(ngModel)]="editProfile.username"
+          placeholder="Choose a unique username"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <!-- Email -->
+    <div class="input-group">
+      <ion-label class="input-label">Email Address</ion-label>
+      <ion-item class="input-item" *ngIf="!isEditing">
+        <ion-icon slot="start" name="mail-outline" class="input-icon"></ion-icon>
+        <ion-text>{{ profile.email || 'john.smith@edusmart.com' }}</ion-text>
+        <small class="verified" slot="end">✓ Verified</small>
+      </ion-item>
+      <ion-item class="input-item" *ngIf="isEditing">
+        <ion-icon slot="start" name="mail-outline" class="input-icon"></ion-icon>
+        <ion-input
+          name="email"
+          type="email"
+          [(ngModel)]="editProfile.email"
+          placeholder="email@example.com"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="input-group">
+  <ion-label class="input-label">Date of Birth</ion-label>
+
+  <!-- Affichage quand on n'est pas en mode édition -->
+  <ion-item class="input-item" *ngIf="!isEditing">
+    <ion-icon slot="start" name="calendar-outline" class="input-icon"></ion-icon>
+    <ion-text>{{ profile?.date_of_birth || 'January 15, 1985' }}</ion-text>
+  </ion-item>
+
+  <!-- Champ d'édition -->
+  <ion-item class="input-item" *ngIf="isEditing">
+    <ion-icon slot="start" name="calendar-outline" class="input-icon"></ion-icon>
+    <ion-datetime-button datetime="dob" class="custom-datetime-button"></ion-datetime-button>
+  </ion-item>
+
+  <!-- Modal du sélecteur de date -->
+  <ion-modal [keepContentsMounted]="true" class="custom-date-modal" *ngIf="isEditing">
+    <ng-template>
+      <ion-datetime
+        id="dob"
+        presentation="date"
+        [max]="maxDate"
+        [value]="editProfile?.date_of_birth || undefined"
+        (ionChange)="onDateChange($event)"
+        class="custom-datetime"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Aperçu -->
+  <ion-text color="medium" *ngIf="isEditing && editProfile?.date_of_birth" class="date-preview">
+    You picked: {{ editProfile.date_of_birth | date: 'fullDate' }}
+  </ion-text>
+</div>
+
+    <!-- Phone Number -->
+    <div class="input-group">
+      <ion-label class="input-label">Phone Number</ion-label>
+      <ion-item class="input-item" *ngIf="!isEditing">
+        <ion-icon slot="start" name="call-outline" class="input-icon"></ion-icon>
+        <ion-text>{{ profile.tel || '+1 (555) 123-4567' }}</ion-text>
+      </ion-item>
+      <ion-item class="input-item" *ngIf="isEditing">
+        <ion-icon slot="start" name="call-outline" class="input-icon"></ion-icon>
+        <ion-input
+          name="tel"
+          type="tel"
+          [(ngModel)]="editProfile.tel"
+          placeholder="+1 (555) 000-0000"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+    </div>
+  </div>
+
+    <!-- Si c’est un enseignant -->
+  <div class="form-section" *ngIf="role === 'ENSEIGNANT'">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <ion-label class="section-title">Professional Details</ion-label>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Speciality</ion-label>
+      <ion-item class="input-item" *ngIf="!isEditing">
+        <ion-icon slot="start" name="school-outline" class="input-icon"></ion-icon>
+        <ion-text>{{ profile.speciality || 'Not specified' }}</ion-text>
+      </ion-item>
+      <ion-item class="input-item" *ngIf="isEditing">
+        <ion-icon slot="start" name="school-outline" class="input-icon"></ion-icon>
+        <ion-input name="speciality" [(ngModel)]="editProfile.speciality" placeholder="Speciality" class="custom-input"></ion-input>
+      </ion-item>
+    </div>
+  </div>
+
+  <!-- Si c’est un étudiant -->
+  <div class="form-section" *ngIf="role === 'ETUDIANT'">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <ion-label class="section-title">Student Details</ion-label>
+    </div>
+
+   <div class="input-group">
+  <ion-label class="input-label">Status</ion-label>
+
+  <!-- Affichage  -->
+  <ion-item class="input-item" *ngIf="!isEditing">
+    <ion-icon slot="start" name="ribbon-outline" class="input-icon"></ion-icon>
+    <ion-text>{{ profile.status || 'Not specified' }}</ion-text>
+  </ion-item>
+
+  <!-- Modification avec liste déroulante -->
+  <ion-item class="input-item" *ngIf="isEditing">
+    <ion-icon slot="start" name="ribbon-outline" class="input-icon"></ion-icon>
+    <ion-select
+      [(ngModel)]="editProfile.status"
+      placeholder="Select status"
+      [interfaceOptions]="statusSelectOptions"
+    >
+      <ion-select-option *ngFor="let s of statusChoices" [value]="s[0]">
+        {{ s[1] }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+</div>
+
+  </div>
+
+
+  <!-- Action Buttons -->
+  <div class="action-buttons" *ngIf="isEditing">
+    <ion-button expand="block" color="primary" (click)="saveProfile()" class="submit-button">
+      <ion-icon slot="start" name="save-outline"></ion-icon>
+      Save Changes
+    </ion-button>
+    
+    <ion-button expand="block" color="medium" fill="outline" (click)="cancel()" class="cancel-button">
+      Cancel
+    </ion-button>
+  </div>
+</ion-content>
