@@ -78,7 +78,7 @@ ROOT_URLCONF = 'backendEduSmart.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -166,9 +166,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = ''       
-EMAIL_HOST_PASSWORD = ''      # use App Password (not your Gmail password!)
+EMAIL_HOST_USER = 'edusmart376@gmail.com'       
+EMAIL_HOST_PASSWORD = 'jzye pflo tyjk ihif'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 #redis config 
 CHANNEL_LAYERS = {
@@ -179,3 +180,4 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
