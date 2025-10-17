@@ -7,7 +7,6 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth import authenticate,get_user_model
 from .serializers import ChangePasswordSerializer, RegisterSerializer, LoginSerializer, StudentProfileSerializer, TeacherProfileSerializer, UserProfileSerializer
 from django.contrib.auth import authenticate
-
 from accounts.models import Teacher
 from .serializers import RegisterSerializer, LoginSerializer, TeacherSerializer
 

@@ -5,8 +5,8 @@ export interface User {
   last_name?: string;
   password?: string;
   email?: string;
-  date_of_birth?: string;
   tel?: string;
+  date_of_birth?: string;
   profile_picture?: string;
   status?: string;
   role: 'ADMIN' | 'ENSEIGNANT' | 'ETUDIANT';
