@@ -1,11 +1,56 @@
 import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import {
+  IonApp,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonMenuButton,
+  IonRouterOutlet,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular/standalone';
+import { MenuComponent } from './components/menu/menu.component';
+import { Auth } from './services/auth/auth';
+import { Router } from '@angular/router';
+import { User } from './models/user.models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet],
+  imports: [
+    CommonModule,
+    IonApp,
+    IonRouterOutlet,
+    MenuComponent,
+    IonHeader,
+    IonContent,
+    IonToolbar,
+    IonButtons,
+    IonTitle,
+    IonMenuButton,
+  ],
 })
 export class AppComponent {
-  constructor() {}
+  user: User | null = null;
+  constructor(private authService: Auth, private router: Router) {}
+
+  ngOnInit() {
+    this.user = this.authService.getLoggedInUser();
+
+    // Optionally, subscribe to changes
+    this.authService.currentUser$.subscribe((u) => {
+      this.user = u;
+    });
+  }
+
+  isAuthPage(): boolean {
+    const url = this.router.url;
+    return url.includes('/login') || url.includes('/register');
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

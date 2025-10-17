@@ -5,18 +5,6 @@ export const routes: Routes = [
     path: 'home',
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
-  {
-    path: 'auth',
-    loadComponent: () => import('./auth/auth.page').then( m => m.AuthPage)
-  },
-  {
-    path: 'profile',
-    loadComponent: () => import('./profile/profile.page').then( m => m.ProfilePage)
-  },
-  {
-    path: 'password-change',
-    loadComponent: () => import('./password-change/password-change.page').then( m => m.PasswordChangePage)
-  },
 
   {
     path: '',
@@ -53,4 +41,25 @@ export const routes: Routes = [
         (m) => m.UpdateTeacherPage
       ),
   },
+  {
+    path: 'chat-group/:id',
+    loadComponent: () =>
+      import('./chat-group/chat-group.page').then((m) => m.ChatGroupPage),
+  },  {
+    path: 'video-call',
+    loadComponent: () => import('./video-call/video-call.page').then( m => m.VideoCallPage)
+  },
+  {
+    path: 'auth',
+    loadComponent: () => import('./auth/auth.page').then( m => m.AuthPage)
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'password-change',
+    loadComponent: () => import('./password-change/password-change.page').then( m => m.PasswordChangePage)
+  },
+
 ];

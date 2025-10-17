@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'course',
     'group',
     'quiz',
-    'accounts'
+    'accounts',
+    'channels',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +92,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backendEduSmart.wsgi.application'
-
+ASGI_APPLICATION = "backendEduSmart.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -167,3 +169,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = ''       
 EMAIL_HOST_PASSWORD = ''      # use App Password (not your Gmail password!)
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+#redis config 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
+}
