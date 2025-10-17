@@ -1,4 +1,5 @@
-from rest_framework import generics, status,permissions
+from datetime import datetime
+from rest_framework import generics, status , permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import update_session_auth_hash
@@ -7,8 +8,13 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth import authenticate,get_user_model
 from .serializers import ChangePasswordSerializer, RegisterSerializer, LoginSerializer, StudentProfileSerializer, TeacherProfileSerializer, UserProfileSerializer
 from django.contrib.auth import authenticate
-from accounts.models import Teacher
-from .serializers import RegisterSerializer, LoginSerializer, TeacherSerializer
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.conf import settings
+
+from accounts.models import Student, Teacher
+from .serializers import RegisterSerializer, LoginSerializer, StudentSerializer, TeacherSerializer
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
@@ -95,7 +101,25 @@ class TeacherView(generics.CreateAPIView):
     permission_classes = [permissions.IsAdminUser]
     
     def perform_create(self, serializer):
-       serializer.save(role='ENSEIGNANT')
+       teacher = serializer.save(role='ENSEIGNANT')
+       password = getattr(teacher, 'raw_password', None)
+       # Render HTML email
+       html_content = render_to_string('emails/teacher_credentials.html', {
+            'teacher': teacher,
+            'password': password,
+            'year': datetime.now().year,
+        })
+       text_content = strip_tags(html_content)  # fallback text version
+
+       subject = 'Your EduSmart Teacher Account Credentials'
+       email = EmailMultiAlternatives(
+            subject,
+            text_content,
+            settings.DEFAULT_FROM_EMAIL,
+            [teacher.email],
+        )
+       email.attach_alternative(html_content, "text/html")
+       email.send()
 
 # List all teachers
 class TeacherListView(generics.ListAPIView):
@@ -119,3 +143,14 @@ class TeacherDeleteView(generics.DestroyAPIView):
     serializer_class = TeacherSerializer
     permission_classes = [permissions.IsAdminUser]
 
+# List students
+class StudentListView(generics.ListAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+# Delete student
+class StudentDeleteView(generics.DestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classes = [permissions.IsAdminUser]
