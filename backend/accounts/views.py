@@ -6,6 +6,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth import authenticate,get_user_model
 from .serializers import ChangePasswordSerializer, RegisterSerializer, LoginSerializer, StudentProfileSerializer, TeacherProfileSerializer, UserProfileSerializer
+from django.contrib.auth import authenticate
+
+from accounts.models import Teacher
+from .serializers import RegisterSerializer, LoginSerializer, TeacherSerializer
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
@@ -80,3 +84,35 @@ class ChangePasswordView(APIView):
             return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+# CReate Teacher 
+class TeacherView(generics.CreateAPIView):
+    queryset=Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    permission_classes = [permissions.IsAdminUser]
+    
+    def perform_create(self, serializer):
+       serializer.save(role='ENSEIGNANT')
+
+# List all teachers
+class TeacherListView(generics.ListAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+# Update teacher
+class TeacherUpdateView(generics.RetrieveUpdateAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    permission_classes = [permissions.IsAdminUser]
+    
+    def get_serializer(self, *args, **kwargs):
+        kwargs['partial'] = True  # allow partial update
+        return super().get_serializer(*args, **kwargs)
+
+# Delete teacher
+class TeacherDeleteView(generics.DestroyAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    permission_classes = [permissions.IsAdminUser]
+

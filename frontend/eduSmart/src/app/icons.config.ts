@@ -21,6 +21,13 @@ import {
   flashOutline,
   closeCircleOutline,
   alertCircleOutline,
+  addOutline,
+  ellipsisVertical,
+  chevronForwardOutline,
+  trashOutline, 
+  add,
+  addCircle,
+
 } from 'ionicons/icons';
 
 export function registerIcons() {
@@ -46,6 +53,12 @@ export function registerIcons() {
     'flash-outline':flashOutline,
     'close-circle-outline':closeCircleOutline,
     'alert-circle-outline':alertCircleOutline,
+    'add-outline': addOutline,
+    'ellipsis-vertical': ellipsisVertical,
+    'chevron-forward-outline': chevronForwardOutline,
+    'trash-outline': trashOutline,
+    add: add,
+    'add-circle': addCircle,
 
   });
 }

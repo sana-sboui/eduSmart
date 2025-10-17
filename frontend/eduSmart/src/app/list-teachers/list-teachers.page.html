@@ -1,0 +1,98 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <div class="title-container">
+        <h2>Enseignants</h2>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Search -->
+  <ion-searchbar
+    placeholder="Search ..."
+    [(ngModel)]="searchTerm"
+    animated
+  ></ion-searchbar>
+
+  <!-- Filters -->
+  <div class="filter-container">
+    <div
+      *ngFor="let f of filters"
+      class="chip"
+      [class.active]="activeFilter === f"
+      (click)="setActiveFilter(f)"
+    >
+      {{ f }}
+    </div>
+  </div>
+
+  <!-- Enseignants list -->
+  <div class="enseignants-list">
+    <ion-card class="teacher-card" *ngFor="let e of filteredTeachers">
+      <div class="card-content">
+        <div class="header">
+          <div class="avatar">
+            {{ getInitials(e.first_name!,e.last_name!) }}
+          </div>
+
+          <div class="info">
+            <h3>{{ e.last_name }} {{ e.first_name}}</h3>
+            <p class="subject">{{ e.speciality }}</p>
+          </div>
+        </div>
+
+        <div class="details">
+          <div class="detail-item">
+            <ion-icon name="person-outline"></ion-icon>
+            <span>{{ e.username }}</span>
+          </div>
+          <div class="detail-item">
+            <ion-icon name="call-outline"></ion-icon>
+            <span>{{ e.tel }}</span>
+          </div>
+          <div class="detail-item">
+            <ion-icon name="mail-outline"></ion-icon>
+            <span>{{ e.email }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <ion-button
+          fill="clear"
+          color="secondary"
+          (click)="onEdit(e.id!)"
+          class="action-btn"
+        >
+          <ion-icon
+            name="create-outline"
+            size="large"
+            slot="icon-only"
+          ></ion-icon>
+        </ion-button>
+
+        <ion-button
+          fill="clear"
+          color="danger"
+          (click)="onDelete(e.id!)"
+          class="action-btn"
+        >
+          <ion-icon
+            name="trash-outline"
+            size="large"
+            slot="icon-only"
+          ></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card>
+  </div>
+
+  <!-- Floating Add Button -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="addEnseignant()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
