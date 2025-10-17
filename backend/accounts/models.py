@@ -23,7 +23,6 @@ class Student(User):
         ('EMPLOYEE', 'Employee'),
         ('OTHER', 'Other'),
     ]
-    group = models.ForeignKey("group.Group", on_delete=models.SET_NULL, null=True, blank=True) 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='STUDENT')  
 
 class Teacher(User):

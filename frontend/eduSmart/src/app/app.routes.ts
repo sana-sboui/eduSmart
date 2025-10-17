@@ -12,17 +12,8 @@ export const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'auth',
     pathMatch: 'full',
-  },
-  {
-    path: 'login',
-    loadComponent: () => import('./login/login.page').then((m) => m.LoginPage),
-  },
-  {
-    path: 'register',
-    loadComponent: () =>
-      import('./register/register.page').then((m) => m.RegisterPage),
   },
   {
     path: 'create-teacher',
@@ -45,4 +36,9 @@ export const routes: Routes = [
         (m) => m.UpdateTeacherPage
       ),
   },
+  {
+    path: 'group',
+    loadComponent: () => import('./group/group.page').then( m => m.GroupPage)
+  },
+
 ];
