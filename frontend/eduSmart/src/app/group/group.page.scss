@@ -1,0 +1,253 @@
+.group-card {
+  margin: 16px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #00617a;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 97, 122, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.card-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px 12px 20px;
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+  border-bottom: 1px solid #e8ecef;
+}
+
+.group-info-left {
+  flex: 1;
+}
+
+.group-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #00617a;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.teacher-info-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.teacher-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #2b7b8e;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #00617a;
+  font-weight: 500;
+
+  ion-icon {
+    font-size: 16px;
+    margin-right: 6px;
+    color: #00617a;
+  }
+}
+
+.speciality-tag {
+  background: #ffffff;
+  color: #5795a2;
+  border: 1px solid #5795a2;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  ion-icon {
+    font-size: 14px;
+    margin-right: 4px;
+    color: #5795a2;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.action-btn {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  width: 38px;
+  height: 38px;
+  --border-radius: 10px;
+  transition: all 0.2s ease;
+  --ripple-color: transparent;
+
+  &:hover {
+    transform: scale(1.08);
+  }
+}
+
+.view-btn {
+  --background: transparent;
+  --background-hover: #f0f7f9;
+  --background-activated: #5795a2;
+  --color: #5795a2;
+  --border-width: 1.5px;
+  --border-style: solid;
+  --border-color: #5795a2;
+}
+
+.update-btn {
+  --background: transparent;
+  --background-hover: #fab237;
+  --background-activated: #F59E0B;
+  --color: #F59E0B;
+  --border-width: 1.5px;
+  --border-style: solid;
+  --border-color: #F59E0B;
+}
+
+.delete-btn {
+  --background: #ffffff;
+  --background-hover: #fee;
+  --background-activated: #e74c3c;
+  --color: #e74c3c;
+  --border-width: 1.5px;
+  --border-style: solid;
+  --border-color: #e74c3c;
+}
+
+.card-body {
+  padding: 20px;
+  background: #ffffff;
+}
+
+.description-section {
+  position: relative;
+  padding-left: 12px;
+  border-left: 3px solid #5795a2;
+}
+
+.section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #00617a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.description-text {
+  color: #546e7a;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.no-description {
+  color: #90a4ae;
+  opacity: 0.7;
+}
+
+.form-container {
+  padding-bottom: 20px;
+}
+
+.illustration-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  animation: fadeInDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lock-icon-container {
+  width: 110px;
+  height: 110px;
+  background: linear-gradient(135deg, rgba(0, 97, 122, 0.1) 0%, rgba(87, 149, 162, 0.1) 100%);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.title-section {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 20px;
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s backwards;
+}
+
+.title-section h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ion-color-primary);
+  margin-bottom: 8px;
+  margin-top: -12px;
+  letter-spacing: -0.5px;
+}
+
+.title-section p {
+  font-size: 15px;
+  color: var(--ion-color-medium);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.icon-xl {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 60px;
+  color: #00617a;
+
+  .empty-icon {
+    font-size: 64px;
+    color: #5795a2;
+    margin-bottom: 16px;
+  }
+
+  .h2no { 
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .pno { 
+    font-size: 1rem;
+    color: #546e7a;
+    margin-bottom: 20px;
+  }
+
+  .create-btn {
+    --background: #00617a;
+    --background-hover: #00596f;
+    --color: #fff;
+    --border-radius: 12px;
+  }
+}
+
+.action-btn.create-grp-btn {
+  margin-top: -50px;
+  margin-left: auto;
+  margin-right: 18px;
+  display: flex;
+  justify-content: flex-end;
+}

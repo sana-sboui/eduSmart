@@ -73,4 +73,12 @@ export const routes: Routes = [
     path: 'group',
     loadComponent: () => import('./group/group.page').then( m => m.GroupPage)
   },
+  {
+    path: 'group-details/:id',
+    loadComponent: () => import('./group-details/group-details/group-details.page').then( m => m.GroupDetailsPage)
+  },
+  {
+    path: 'group-create',
+    loadComponent: () => import('./group-create/group-create/group-create.page').then( m => m.GroupCreatePage)
+  },
 ];

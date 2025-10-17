@@ -1,0 +1,310 @@
+// create-group.component.scss
+
+// Brand Colors
+$primary-color: #00617a;
+$secondary-color: #2b7b8e;
+$tertiary-color: #5795a2;
+$light-color: #83b0b6;
+$background-light: #f9fafb;
+
+ion-toolbar {
+  --background: #{$primary-color};
+  --color: #ffffff;
+}
+
+ion-content {
+  --background: #{$background-light};
+}
+
+.group-form {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+// Form Card Styling
+.form-card {
+  margin: 16px 0;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid $primary-color;
+  overflow: hidden;
+
+  ion-card-header {
+    background: linear-gradient(135deg, #ffffff 0%, $background-light 100%);
+    border-bottom: 1px solid #e8ecef;
+    padding: 16px 20px;
+  }
+
+  ion-card-content {
+    padding: 20px;
+  }
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $primary-color;
+  margin: 0;
+
+  ion-icon {
+    font-size: 1.4rem;
+    color: $secondary-color;
+  }
+}
+
+.student-count-badge {
+  margin-left: auto;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 12px;
+}
+
+// Form Items
+.form-item {
+  margin-bottom: 8px;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+}
+
+.form-label {
+  font-weight: 600;
+  color: $primary-color;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+
+  .required {
+    color: #e74c3c;
+    margin-left: 2px;
+  }
+}
+
+.custom-input,
+.custom-textarea {
+  --background: #ffffff;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  border: 1.5px solid #dfe6e9;
+  border-radius: 12px;
+  margin-top: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+
+  &:focus-within {
+    border-color: $secondary-color;
+    box-shadow: 0 0 0 3px rgba(43, 123, 142, 0.1);
+  }
+}
+
+.custom-textarea {
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+
+.custom-select {
+  --background: #ffffff;
+  --padding-start: 16px;
+  border: 1.5px solid #dfe6e9;
+  border-radius: 12px;
+  margin-top: 4px;
+  width: 100%;
+
+  &::part(text) {
+    font-size: 1rem;
+  }
+}
+
+.error-message {
+  margin-top: 6px;
+  margin-left: 4px;
+  margin-bottom: 16px;
+
+  small {
+    font-size: 0.85rem;
+  }
+}
+
+// Students Section
+.students-header {
+  .section-title {
+    margin-bottom: 16px;
+  }
+}
+
+.custom-searchbar {
+  --background: #ffffff;
+  --border-radius: 12px;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 0;
+  margin-top: 8px;
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.student-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #ffffff;
+  border: 2px solid #e8ecef;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $tertiary-color;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(87, 149, 162, 0.15);
+  }
+
+  &.selected {
+    border-color: $secondary-color;
+    background: linear-gradient(135deg, rgba(43, 123, 142, 0.05) 0%, rgba(87, 149, 162, 0.05) 100%);
+    box-shadow: 0 4px 12px rgba(43, 123, 142, 0.2);
+
+    .student-avatar {
+      border-color: $secondary-color;
+      box-shadow: 0 0 0 3px rgba(43, 123, 142, 0.2);
+    }
+  }
+}
+
+.selection-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: $secondary-color;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleIn 0.2s ease;
+
+  ion-icon {
+    color: #ffffff;
+    font-size: 18px;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.student-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #e8ecef;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.student-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.student-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: $primary-color;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.student-email {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: capitalize;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #95a5a6;
+
+  ion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+// Submit Section
+.submit-section {
+  margin-top: 24px;
+  padding: 0 16px;
+}
+
+.create-button {
+  --background: #{$primary-color};
+  --background-hover: #{$secondary-color};
+  --border-radius: 14px;
+  height: 56px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  box-shadow: 0 4px 12px rgba(0, 97, 122, 0.25);
+  transition: all 0.3s ease;
+
+  &:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 97, 122, 0.35);
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+  }
+
+  ion-icon {
+    font-size: 1.3rem;
+  }
+}

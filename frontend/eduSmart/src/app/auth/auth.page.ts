@@ -53,7 +53,7 @@ export class AuthPage  {
         return;
       }
       this.authService.register(this.user).subscribe({     
-      next: () => this.router.navigate(['/login']),
+      next: () => this.router.navigate(['/auth']),
       error: (err) => this.errorMessage = err.error.detail || 'Registration failed'
     });
     }
