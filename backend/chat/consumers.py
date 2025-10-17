@@ -46,3 +46,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
         user = User.objects.get(id=user_id)
         group = Group.objects.get(id=group_id)
         Message.objects.create(sender=user, group=group, content=message)
+    
+    @sync_to_async
+    def get_group_messages(self, group_id):
+        """Fetch all previous messages in a group"""
+        messages = Message.objects.filter(group_id=group_id).select_related('sender').order_by('timestamp')
+        return [
+            {
+                'id': msg.id,
+                'sender': msg.sender.username,
+                'content': msg.content,
+                'timestamp': msg.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+            }
+            for msg in messages
+        ]
