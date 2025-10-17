@@ -53,5 +53,13 @@ export const routes: Routes = [
     path: 'auth',
     loadComponent: () => import('./auth/auth.page').then( m => m.AuthPage)
   },
+  {
+    path: 'profile',
+    loadComponent: () => import('./profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'password-change',
+    loadComponent: () => import('./password-change/password-change.page').then( m => m.PasswordChangePage)
+  },
 
 ];

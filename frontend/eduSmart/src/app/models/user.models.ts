@@ -7,9 +7,9 @@ export interface User {
   email?: string;
   date_of_birth?: string;
   tel?: string;
+  profile_picture?: string;
   status?: string;
   role: 'ADMIN' | 'ENSEIGNANT' | 'ETUDIANT';
-  profile_picture?: string;
 }
 export interface AuthResponse {
   access: string;
