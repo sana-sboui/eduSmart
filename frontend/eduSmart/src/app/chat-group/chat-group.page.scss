@@ -1,0 +1,17 @@
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  p {
+    margin: 4px 0;
+  }
+  small {
+    color: gray;
+    font-size: 0.8em;
+  }
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
