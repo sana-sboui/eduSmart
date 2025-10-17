@@ -1,0 +1,17 @@
+<ion-card *ngFor="let group of groups">
+  <ion-card-header>
+    <ion-card-title>{{ group.name }}</ion-card-title>
+    <ion-card-subtitle>Teacher: {{ group.teacher_detail!.first_name }} {{ group.teacher_detail!.last_name }}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <p>{{ group.description }}</p>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Students</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let student of group.students_detail">
+        {{ student.first_name }} {{ student.last_name }}
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

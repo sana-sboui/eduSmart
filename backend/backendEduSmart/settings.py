@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,7 +45,9 @@ INSTALLED_APPS = [
     'course',
     'group',
     'quiz',
-    'accounts'
+    'accounts',
+    'channels',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -89,7 +92,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backendEduSmart.wsgi.application'
-
+ASGI_APPLICATION = "backendEduSmart.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -149,6 +152,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom auth user
 AUTH_USER_MODEL = 'accounts.User'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -163,3 +169,15 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'edusmart376@gmail.com'       
 EMAIL_HOST_PASSWORD = 'jzye pflo tyjk ihif'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+#redis config 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
+}
+
