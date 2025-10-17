@@ -17,6 +17,10 @@ import {
   peopleOutline,
   starOutline,
   saveOutline,
+  eyeOutline,
+  flashOutline,
+  closeCircleOutline,
+  alertCircleOutline,
 } from 'ionicons/icons';
 
 export function registerIcons() {
@@ -36,7 +40,12 @@ export function registerIcons() {
     'book-outline':bookOutline,
     'people-outline':peopleOutline,
     'star-outline':starOutline,
-    'save-outline':saveOutline
+    'save-outline':saveOutline,
+    'eye-outline': eyeOutline,
+    'checkmark-circle-outline':checkmarkOutline,
+    'flash-outline':flashOutline,
+    'close-circle-outline':closeCircleOutline,
+    'alert-circle-outline':alertCircleOutline,
 
   });
 }

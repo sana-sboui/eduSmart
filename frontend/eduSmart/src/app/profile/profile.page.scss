@@ -1,5 +1,5 @@
 .profile-page {
-  --background: #f9fbfc;
+  --background: #f5f8fa;;
 
   ion-toolbar {
     border-bottom-left-radius: 20px;
@@ -140,22 +140,30 @@
  .section-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  
   margin-bottom: 20px;
 
-  .section-line {
-    width: 4px;
-    height: 24px;
-    background: var(--ion-color-primary);
-    border-radius: 4px;
-  }
+  
 
   .section-title {
-    font-weight: 700;
-    font-size: 18px;
-    color: var(--ion-color-primary);
-    margin-bottom: -5px;
+  font-size: 16px;
+  font-weight: 700;
+  color:var(--ion-color-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards;
   }
+  .section-title::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-secondary-tint) 100%);
+  border-radius: 2px;
+}
 }
 .name-row {
   display: flex;

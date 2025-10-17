@@ -22,6 +22,10 @@ export const routes: Routes = [
     path: 'profile',
     loadComponent: () => import('./profile/profile.page').then( m => m.ProfilePage)
   },
+  {
+    path: 'password-change',
+    loadComponent: () => import('./password-change/password-change.page').then( m => m.PasswordChangePage)
+  },
 
 
 ];

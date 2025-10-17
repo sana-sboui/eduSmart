@@ -7,6 +7,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 export class Photos {
     
     async takePicture() {
+        console.log("zeineb")
         const capturedPhoto = await Camera.getPhoto({
             source: CameraSource.Camera,
             allowEditing: false,

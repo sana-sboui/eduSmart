@@ -29,11 +29,3 @@
   --ion-placeholder-color: #83b0b6;
 }
 
-ion-button {
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-ion-button:hover {
-  transform: scale(1.05);
-  background-color: var(--ion-color-secondary); /* medium blue (#2b7b8e) */
-}

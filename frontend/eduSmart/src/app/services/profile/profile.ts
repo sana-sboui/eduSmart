@@ -36,6 +36,12 @@ export class Profile {
 
   return this.http.patch(`${this.apiUrl}`, formData);
 }
+changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    return this.http.post(`http://127.0.0.1:8000/accounts/auth/change-password/`, {
+      old_password: oldPassword,
+      new_password: newPassword,
+    });
+  }
 
 dataURLtoBlob(dataURL: string | null): Blob | null {
   if (!dataURL || !dataURL.includes(',')) return null;
