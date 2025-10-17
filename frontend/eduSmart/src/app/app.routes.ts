@@ -24,15 +24,6 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'login',
-    loadComponent: () => import('./login/login.page').then((m) => m.LoginPage),
-  },
-  {
-    path: 'register',
-    loadComponent: () =>
-      import('./register/register.page').then((m) => m.RegisterPage),
-  },
-  {
     path: 'create-teacher',
     loadComponent: () =>
       import('./create-teacher/create-teacher.page').then(
