@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ChatMessage } from '../models/chatMessage.models';
 import {
   IonButton,
   IonContent,
@@ -15,11 +16,6 @@ import {
 import { ChatService } from '../services/chat/chat-service';
 import { Auth } from '../services/auth/auth';
 import { ActivatedRoute } from '@angular/router';
-
-interface ChatMessage {
-  user_id: string;
-  message: string;
-}
 
 @Component({
   selector: 'app-chat-group',
@@ -50,7 +46,7 @@ export class ChatGroupPage {
     private route: ActivatedRoute
   ) {}
   ws!: WebSocket;
-  groupId = 1; // Remplace par l'ID du groupe réel
+  groupId = 1;
 
   messages = signal<ChatMessage[]>([]);
   newMessage = '';
@@ -77,10 +73,25 @@ export class ChatGroupPage {
 
     this.ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      this.messages.update((msgs) => [
-        ...msgs,
-        { user_id: data.user_id, message: data.message },
-      ]);
+
+      if (data.type === 'chat_history') {
+        // history comes as [{sender, content, timestamp}, ...]
+        this.messages.set(
+          data.messages.map((m: any) => ({
+            sender: m.sender,
+            content: m.content,
+            timestamp: m.timestamp,
+          }))
+        );
+      } else if (data.type === 'chat_message') {
+        this.messages.update((msgs) => [
+          ...msgs,
+          {
+            sender: `User ${data.user_id}`,
+            content: data.message,
+          },
+        ]);
+      }
     };
 
     this.ws.onclose = () => {

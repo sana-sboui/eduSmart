@@ -26,7 +26,7 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptors([authInterceptor])),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular({
-      //mode: 'ios', // Force iOS mode globally
+      mode: 'ios', // Force iOS mode globally
     }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
   ],
