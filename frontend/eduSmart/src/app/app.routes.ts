@@ -12,15 +12,6 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'login',
-    loadComponent: () => import('./login/login.page').then((m) => m.LoginPage),
-  },
-  {
-    path: 'register',
-    loadComponent: () =>
-      import('./register/register.page').then((m) => m.RegisterPage),
-  },
-  {
     path: 'create-teacher',
     loadComponent: () =>
       import('./create-teacher/create-teacher.page').then(
@@ -40,9 +31,12 @@ export const routes: Routes = [
       import('./update-teacher/update-teacher.page').then(
         (m) => m.UpdateTeacherPage
       ),
-  },  {
-    path: 'list-students',
-    loadComponent: () => import('./list-students/list-students.page').then( m => m.ListStudentsPage)
   },
-
+  {
+    path: 'list-students',
+    loadComponent: () =>
+      import('./list-students/list-students.page').then(
+        (m) => m.ListStudentsPage
+      ),
+  },
 ];
