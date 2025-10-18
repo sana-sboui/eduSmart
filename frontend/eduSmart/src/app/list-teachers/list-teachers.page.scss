@@ -300,3 +300,37 @@ ion-fab-button {
     transform: scale(1.1);
   }
 }
+
+.student-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.student-avatar .avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #80a9a9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  position: relative;
+  transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.student-avatar .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.student-avatar .avatar:hover {
+  transform: scale(1.05);
+}

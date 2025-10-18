@@ -2,18 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonBackButton,
   IonButton,
-  IonButtons,
   IonContent,
-  IonHeader,
   IonIcon,
   IonInput,
   IonItem,
   IonLabel,
   IonText,
-  IonTitle,
-  IonToolbar,
   IonDatetime,
   IonModal,
   IonDatetimeButton,
@@ -59,6 +54,8 @@ export class CreateTeacherPage {
   };
   confirm_password = '';
   maxDate: string;
+  passwordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
   constructor(
     private teacherService: TeacherService,
     private alertCtrl: AlertController,
@@ -70,6 +67,14 @@ export class CreateTeacherPage {
     this.maxDate = yesterday.toISOString().split('T')[0];
   }
 
+  togglePassword() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  toggleConfirmPassword() {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
+  }
+
   async createTeacher() {
     if (this.teacher.password !== this.confirm_password) {
       this.showAlert('Error', 'Passwords do not match');
@@ -79,11 +84,7 @@ export class CreateTeacherPage {
     this.teacherService.createTeacher(this.teacher).subscribe({
       next: async (res) => {
         console.log('teacher', this.teacher);
-        await this.showToast(
-          'Teacher created successfully!',
-          '#2b7b8e',
-          '#ffffff'
-        );
+        await this.showToast('Teacher created successfully!', 'success');
         // Redirect after alert is dismissed
         this.router.navigate(['/list-teachers']);
       },
@@ -91,7 +92,7 @@ export class CreateTeacherPage {
         console.error(err);
         let msg = 'Error creating teacher.';
         if (err.error?.username) msg = err.error.username;
-        await this.showToast(msg, '#eb445a', '#ffffff');
+        await this.showToast(msg, 'error');
       },
     });
   }
@@ -105,20 +106,40 @@ export class CreateTeacherPage {
     await alert.present();
   }
 
-  async showToast(
-    message: string,
-    bgColor: string = '#10dc60',
-    textColor: string = '#ffffff'
-  ) {
+  async showToast(message: string, type: 'success' | 'error' | 'warning') {
+    let cssClass = '';
+    let icon = '';
+
+    switch (type) {
+      case 'success':
+        cssClass = 'toast-success';
+        icon = 'checkmark-circle-outline';
+        break;
+      case 'error':
+        cssClass = 'toast-error';
+        icon = 'close-circle-outline';
+        break;
+      case 'warning':
+        cssClass = 'toast-warning';
+        icon = 'alert-circle-outline';
+        break;
+    }
+
     const toast = await this.toastController.create({
       message,
       duration: 2500,
-      position: 'bottom',
+      position: 'top',
+      cssClass,
+      icon,
+      animated: true,
+      buttons: [
+        {
+          side: 'end',
+          icon: 'close',
+          role: 'cancel',
+        },
+      ],
     });
-
-    toast.style.setProperty('--background', bgColor);
-    toast.style.setProperty('--color', textColor);
-
     await toast.present();
   }
 

@@ -91,14 +91,11 @@
           ></ion-datetime>
         </ng-template>
       </ion-modal>
-
-      <ion-text
-        color="medium"
-        *ngIf="teacher.date_of_birth"
-        class="date-preview"
-      >
+      @if (teacher.date_of_birth) {
+      <ion-text color="medium" class="date-preview">
         You picked: {{ teacher.date_of_birth | date: 'fullDate' }}
       </ion-text>
+      }
     </div>
   </div>
 
@@ -157,11 +154,17 @@
         ></ion-icon>
         <ion-input
           name="password"
-          type="password"
+          [type]="passwordVisible ? 'text' : 'password'"
           [(ngModel)]="teacher.password"
           placeholder="Create a strong password"
           class="custom-input"
         ></ion-input>
+        <ion-icon
+          slot="end"
+          [name]="passwordVisible ? 'eye-off-outline' : 'eye-outline'"
+          (click)="togglePassword()"
+          class="input-icon"
+        ></ion-icon>
       </ion-item>
     </div>
 
@@ -175,11 +178,17 @@
         ></ion-icon>
         <ion-input
           name="confirm_password"
-          type="password"
+          [type]="confirmPasswordVisible ? 'text' : 'password'"
           [(ngModel)]="confirm_password"
           placeholder="Re-enter your password"
           class="custom-input"
         ></ion-input>
+        <ion-icon
+          slot="end"
+          [name]="confirmPasswordVisible ? 'eye-off-outline' : 'eye-outline'"
+          (click)="toggleConfirmPassword()"
+          class="input-icon"
+        ></ion-icon>
       </ion-item>
     </div>
   </div>

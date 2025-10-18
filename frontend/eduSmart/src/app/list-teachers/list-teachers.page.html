@@ -17,23 +17,39 @@
 
   <!-- Filters -->
   <div class="filter-container">
+    @for (f of filters; track f) {
     <div
-      *ngFor="let f of filters"
       class="chip"
       [class.active]="activeFilter === f"
       (click)="setActiveFilter(f)"
     >
       {{ f }}
     </div>
+    }
   </div>
 
   <!-- Enseignants list -->
   <div class="enseignants-list">
-    <ion-card class="teacher-card" *ngFor="let e of filteredTeachers">
+    @for (e of filteredTeachers; track e.id) {
+    <ion-card class="teacher-card">
       <div class="card-content">
         <div class="header">
-          <div class="avatar">
-            {{ getInitials(e.first_name!,e.last_name!) }}
+          <div class="student-avatar">
+            <div class="avatar">
+              <!-- Show photo if exists -->
+              @if (e?.profile_picture) {
+              <img
+                [src]="e?.profile_picture"
+                [alt]="e.first_name + ' ' + e.last_name"
+              />
+              } @else {
+              <!-- Show initials if no photo -->
+              <span>
+                {{ (e.first_name!.charAt(0) +
+                e.last_name!.charAt(0))?.toUpperCase() }}
+              </span>
+              }
+            </div>
           </div>
 
           <div class="info">
@@ -86,9 +102,9 @@
         </ion-button>
       </div>
     </ion-card>
+    }
   </div>
 
-  <!-- Floating Add Button -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="primary" (click)="addEnseignant()">
       <ion-icon name="add"></ion-icon>
