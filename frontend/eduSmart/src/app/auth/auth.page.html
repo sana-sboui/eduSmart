@@ -175,27 +175,6 @@
             </ion-text>
             }
 
-            <!--  modal -->
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime
-                  id="dob"
-                  presentation="date"
-                  [max]="maxDate"
-                  [value]="user.date_of_birth || undefined"
-                  (ionChange)="onDateChange($event)"
-                ></ion-datetime>
-              </ng-template>
-            </ion-modal>
-
-            <ion-text
-              color="medium"
-              *ngIf="user?.date_of_birth"
-              class="date-preview"
-            >
-              You picked: {{ user.date_of_birth | date: 'fullDate' }}
-            </ion-text>
-
             <ion-item lines="none" class="ion-item">
               <ion-label
                 style="font-weight: 600"
