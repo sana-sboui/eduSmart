@@ -93,4 +93,9 @@ export const routes: Routes = [
     path: 'group-create',
     loadComponent: () => import('./group-create/group-create/group-create.page').then( m => m.GroupCreatePage)
   },
+  {
+    path: 'group-update/:id',
+    loadComponent: () => import('./group-update/group-update/group-update.page').then( m => m.GroupUpdatePage)
+  },
+
 ];

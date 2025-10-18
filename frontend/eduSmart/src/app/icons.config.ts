@@ -29,6 +29,8 @@ import {
   peopleOutline,
   logOutOutline,
   personCircleOutline,
+  informationCircleOutline,
+  bookmarkOutline,
 } from 'ionicons/icons';
 
 export function registerIcons() {
@@ -63,5 +65,7 @@ export function registerIcons() {
     'home-outline': homeOutline,
     'log-out-outline': logOutOutline,
     'person-circle-outline': personCircleOutline,
+    'information-circle-outline': informationCircleOutline,
+    'bookmark-outline': bookmarkOutline,
   });
 }

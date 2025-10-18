@@ -6,25 +6,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TeacherService } from 'src/app/services/teacher/teacher';
 import { Teacher } from 'src/app/models/teacher.models';
 import { Router } from '@angular/router';
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  status: 'active' | 'inactive' | 'pending';
-  profile_photo?: string;
-}
-
-interface Group {
-  id: number;
-  name: string;
-  description: string;
-  teacher: number;
-  students: number[];
-  teacher_detail: Teacher;
-  students_detail: User[];
-}
+import { User } from 'src/app/models/user.models';
+import { StudentService } from 'src/app/services/student/student-service';
+import { GroupService } from 'src/app/services/group/group';
 
 @Component({
   selector: 'app-group-create',
@@ -43,15 +27,54 @@ export class GroupCreatePage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private teacherService: TeacherService,
+    private studentService: StudentService,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private router: Router,
+    private groupService: GroupService
   ) {
     this.groupForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(5)]],
       teacher: [null, Validators.required],
     });
+  }
+
+  async showToast(message: string, type: 'success' | 'error' | 'warning') {
+    let cssClass = '';
+    let icon = '';
+
+    switch (type) {
+      case 'success':
+        cssClass = 'toast-success';
+        icon = 'checkmark-circle-outline';
+        break;
+      case 'error':
+        cssClass = 'toast-error';
+        icon = 'close-circle-outline';
+        break;
+      case 'warning':
+        cssClass = 'toast-warning';
+        icon = 'alert-circle-outline';
+        break;
+    }
+
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 2500,
+      position: 'top',
+      cssClass,
+      icon,
+      animated: true,
+      buttons: [
+        {
+          side: 'end',
+          icon: 'close',
+          role: 'cancel',
+        },
+      ],
+    });
+    await toast.present();
   }
 
   ngOnInit() {
@@ -71,57 +94,15 @@ export class GroupCreatePage implements OnInit {
   }
 
   loadStudents() {
-    // Mock data - replace with actual API call
-    this.students = [
-      {
-        id: 1,
-        first_name: 'Alice',
-        last_name: 'Williams',
-        email: 'alice.w@student.com',
-        status: 'active',
-        profile_photo: 'https://i.pravatar.cc/150?img=10'
+    this.studentService.listStudents().subscribe({
+      next: (data) => {
+        this.students = data;
+        console.log('student: ', this.students)
       },
-      {
-        id: 2,
-        first_name: 'Bob',
-        last_name: 'Brown',
-        email: 'bob.b@student.com',
-        status: 'active',
-        profile_photo: 'https://i.pravatar.cc/150?img=11'
+      error: (err) => {
+        console.error('Error loading students:', err);
       },
-      {
-        id: 3,
-        first_name: 'Charlie',
-        last_name: 'Davis',
-        email: 'charlie.d@student.com',
-        status: 'pending',
-        profile_photo: 'https://i.pravatar.cc/150?img=12'
-      },
-      {
-        id: 4,
-        first_name: 'Diana',
-        last_name: 'Miller',
-        email: 'diana.m@student.com',
-        status: 'active',
-        profile_photo: 'https://i.pravatar.cc/150?img=13'
-      },
-      {
-        id: 5,
-        first_name: 'Edward',
-        last_name: 'Wilson',
-        email: 'edward.w@student.com',
-        status: 'inactive',
-        profile_photo: 'https://i.pravatar.cc/150?img=14'
-      },
-      {
-        id: 6,
-        first_name: 'Fiona',
-        last_name: 'Moore',
-        email: 'fiona.m@student.com',
-        status: 'active',
-        profile_photo: 'https://i.pravatar.cc/150?img=15'
-      }
-    ];
+    });
   }
 
   toggleStudentSelection(studentId: number) {
@@ -142,52 +123,14 @@ export class GroupCreatePage implements OnInit {
     }
     const term = this.searchTerm.toLowerCase();
     return this.students.filter(student =>
-      student.first_name.toLowerCase().includes(term) ||
-      student.last_name.toLowerCase().includes(term) ||
-      student.email.toLowerCase().includes(term)
+      student.first_name!.toLowerCase().includes(term) ||
+      student.last_name!.toLowerCase().includes(term)
     );
   }
 
-  getStatusColor(status: string): string {
-    switch (status) {
-      case 'Employee':
-        return 'success';
-      case 'Student':
-        return 'medium';
-      case 'Other':
-        return 'warning';
-      default:
-        return 'medium';
-    }
-  }
-
   async createGroup() {
-    const groupData = {
-      name: this.groupForm.value.name,
-      description: this.groupForm.value.description,
-      teacher: this.groupForm.value.teacher,
-      students: Array.from(this.selectedStudents)
-    };
-    console.log('Group data to submit:', groupData);
-    if (this.groupForm.invalid) {
-      const toast = await this.toastCtrl.create({
-        message: 'Please fill in all required fields',
-        duration: 3000,
-        color: 'danger',
-        position: 'top'
-      });
-      toast.present();
-      return;
-    }
-
-    if (this.selectedStudents.size === 0) {
-      const toast = await this.toastCtrl.create({
-        message: 'Please select at least one student',
-        duration: 3000,
-        color: 'warning',
-        position: 'top'
-      });
-      toast.present();
+    if (this.selectedStudents.size < 2) {
+      this.showToast('Please select at least two student', 'warning')
       return;
     }
 
@@ -197,34 +140,29 @@ export class GroupCreatePage implements OnInit {
     });
     await loading.present();
 
-    // Prepare group data
-    // const groupData = {
-    //   name: this.groupForm.value.name,
-    //   description: this.groupForm.value.description,
-    //   teacher: this.groupForm.value.teacher,
-    //   students: Array.from(this.selectedStudents)
-    // };
+    //Prepare group data
+    const groupData = {
+      name: this.groupForm.value.name,
+      description: this.groupForm.value.description,
+      teacher: this.groupForm.value.teacher,
+      students: Array.from(this.selectedStudents)
+    };
 
     console.log('Group data to submit:', groupData);
 
-    // Simulate API call
-    setTimeout(async () => {
-      await loading.dismiss();
-      
-      const toast = await this.toastCtrl.create({
-        message: 'Group created successfully!',
-        duration: 3000,
-        color: 'success',
-        position: 'top'
-      });
-      toast.present();
-
-      // Reset form
-      this.groupForm.reset();
-      this.selectedStudents.clear();
-    }, 1500);
+    this.groupService.createGroup(groupData).subscribe({
+      next: async (data) => {
+          await loading.dismiss();
+        this.showToast('Group created successfully!', 'success');
+        // this.groupForm.reset();
+        // this.selectedStudents.clear();
+        this.router.navigate(['/group'])
+      },
+      error: async (err) => {
+        this.showToast('An error has occured please try again!', 'error');
+      },
+    });
   }
-
 
   getSelectedCount(): number {
     return this.selectedStudents.size;

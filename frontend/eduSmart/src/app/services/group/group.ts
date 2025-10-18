@@ -18,4 +18,16 @@ export class GroupService {
   deleteGroup(id: number) {
     return this.http.delete(`${this.apiUrl}${id}/`)
   }
+
+  createGroup(group: any): Observable<Group> {
+    return this.http.post<Group>(`${this.apiUrl}`, group)
+  }
+
+  updateGroup(id: number, data: any) {
+    return this.http.patch(`${this.apiUrl}${id}/`, data);
+  }
+
+  getGroupById(id: number) {
+    return this.http.get<Group>(`${this.apiUrl}${id}/`);
+  }
 }

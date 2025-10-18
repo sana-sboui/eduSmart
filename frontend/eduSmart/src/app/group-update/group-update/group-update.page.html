@@ -4,12 +4,15 @@
       <ion-icon name="school-outline" class="group-icon"></ion-icon>
     </div>
   </div>
+
+  <!-- Page Title and Description -->
   <div class="page-title-section">
-        <h1>Create a New Group</h1>
-        <p>Set up a group by adding a name, description, teacher, and students.</p>
+    <h1>Update Group</h1>
+    <p>Edit the group details, change the teacher, or update students.</p>
   </div>
+
   <form [formGroup]="groupForm" class="group-form">
-    
+  
     <!-- Group Information Card -->
     <ion-card class="form-card">
       <ion-card-header>
@@ -150,19 +153,19 @@
       </ion-card-content>
     </ion-card>
 
-    <!-- Create Button -->
     <div class="submit-section">
       <ion-button
         expand="block"
         size="large"
-        (click)="createGroup()"
+        (click)="updateGroup()"
         [disabled]="groupForm.invalid"
         class="create-button"
       >
-        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
-        Create Group
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Update Group
       </ion-button>
     </div>
+
 
   </form>
 </ion-content>

@@ -25,6 +25,10 @@ export class GroupPage implements OnInit {
     this.loadGroups();
   }
 
+  ionViewWillEnter() {
+    this.loadGroups();
+  }
+
   loadGroups() {
     this.groupService.getGroups().subscribe({
       next: (data) => {
@@ -43,8 +47,7 @@ export class GroupPage implements OnInit {
   }
 
   updateGroup(id: number) {
-    // Open update modal or navigate to edit page
-    console.log('Update group:', id);
+    this.router.navigate([`group-update/${id}`])
   }
 
   deleteGroup(id: number) {
@@ -52,6 +55,7 @@ export class GroupPage implements OnInit {
     this.groupService.deleteGroup(id).subscribe({
       next: () => {
         console.log("Deleted")
+        this.loadGroups();
       },
       error: (err) => {
         console.error('Error deleting group:', err);
@@ -74,7 +78,6 @@ export class GroupPage implements OnInit {
         role: 'destructive',
         handler: () => {
           this.deleteGroup(groupId);
-          this.loadGroups();
         },
       },
     ];
