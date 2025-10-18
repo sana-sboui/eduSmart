@@ -2,21 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonBackButton,
   IonButton,
-  IonButtons,
   IonContent,
   IonDatetime,
   IonDatetimeButton,
-  IonHeader,
   IonIcon,
   IonInput,
   IonItem,
   IonLabel,
   IonModal,
   IonText,
-  IonTitle,
-  IonToolbar,
   ToastController,
 } from '@ionic/angular/standalone';
 import { Teacher } from '../models/teacher.models';
@@ -31,16 +26,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonItem,
     IonInput,
     IonLabel,
     IonButton,
-    IonButtons,
-    IonBackButton,
     IonIcon,
     IonDatetime,
     IonModal,
@@ -54,6 +44,8 @@ export class UpdateTeacherPage {
   teacher: Teacher = {} as Teacher;
   confirm_password: string = '';
   maxDate: string;
+  passwordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
   constructor(
     private teacherService: TeacherService,
     private route: ActivatedRoute,
@@ -63,6 +55,14 @@ export class UpdateTeacherPage {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     this.maxDate = yesterday.toISOString().split('T')[0];
+  }
+
+  togglePassword() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  toggleConfirmPassword() {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
   ngOnInit() {
@@ -109,32 +109,50 @@ export class UpdateTeacherPage {
 
     this.teacherService.updateTeacher(updateData).subscribe({
       next: async () => {
-        await this.showToast(
-          'Teacher updated successfully!',
-          '#2b7b8e',
-          '#ffffff'
-        );
+        await this.showToast('Teacher updated successfully!', 'success');
         this.router.navigate(['/list-teachers']);
       },
       error: async (err) => {
         console.error(err.error);
-        await this.showToast('Error updating teacher!', '#eb445a', '#ffffff');
+        await this.showToast('Error updating teacher!', 'error');
       },
     });
   }
 
-  async showToast(
-    message: string,
-    bgColor: string = '#2b7b8e',
-    textColor: string = '#ffffff'
-  ) {
+  async showToast(message: string, type: 'success' | 'error' | 'warning') {
+    let cssClass = '';
+    let icon = '';
+
+    switch (type) {
+      case 'success':
+        cssClass = 'toast-success';
+        icon = 'checkmark-circle-outline';
+        break;
+      case 'error':
+        cssClass = 'toast-error';
+        icon = 'close-circle-outline';
+        break;
+      case 'warning':
+        cssClass = 'toast-warning';
+        icon = 'alert-circle-outline';
+        break;
+    }
+
     const toast = await this.toastController.create({
       message,
       duration: 2500,
-      position: 'bottom',
+      position: 'top',
+      cssClass,
+      icon,
+      animated: true,
+      buttons: [
+        {
+          side: 'end',
+          icon: 'close',
+          role: 'cancel',
+        },
+      ],
     });
-    toast.style.setProperty('--background', bgColor);
-    toast.style.setProperty('--color', textColor);
     await toast.present();
   }
 }

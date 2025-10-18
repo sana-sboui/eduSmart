@@ -1,26 +1,67 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Group Chat</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="chat-content">
+  <div class="messages-container">
+    @for (message of messages(); track $index) {
+    <div
+      class="message-wrapper"
+      [class.message-me]="isCurrentUser(message)"
+      [class.message-other]="!isCurrentUser(message)"
+    >
+      @if (!isCurrentUser(message)) {
+      <ion-avatar class="message-avatar avatar-other">
+        {{ getInitials(message.sender!!) }}
+      </ion-avatar>
+      }
 
-<ion-content class="ion-padding">
-  <ion-list>
-    <ion-item *ngFor="let msg of messages()">
-      <ion-label>
-        <strong>{{ msg.sender }}:</strong>
-        <p>{{ msg.content }}</p>
-        <small *ngIf="msg.timestamp">{{ msg.timestamp }}</small>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+      <div class="message-content-column">
+        <div class="message-header">
+          @if (!isCurrentUser(message)) {
+          <ion-text class="username">{{ message.sender }}</ion-text>
+          }
+          <ion-text class="timestamp">
+            {{ message.timestamp | date:'shortTime' }}
+          </ion-text>
+        </div>
 
-  <div class="input-group ion-padding-top">
-    <ion-input
-      [(ngModel)]="newMessage"
-      placeholder="Type a message"
-      name="message"
-    ></ion-input>
-    <ion-button (click)="sendMessage()">Send</ion-button>
+        <div
+          class="message-bubble"
+          [class.bubble-me]="isCurrentUser(message)"
+          [class.bubble-other]="!isCurrentUser(message)"
+        >
+          <div class="message-text-content">
+            <ion-text class="message-text">{{ message.content }}</ion-text>
+          </div>
+        </div>
+
+        @if (isCurrentUser(message)) {
+        <div class="message-footer">
+          <ion-icon name="checkmark" class="read-status"></ion-icon>
+          <ion-text class="read-text">Delivered</ion-text>
+        </div>
+        }
+      </div>
+    </div>
+    }
   </div>
 </ion-content>
+
+<div class="input-container">
+  <div class="input-wrapper">
+    <ion-input
+      [(ngModel)]="newMessage"
+      (keypress)="onKeyPress($event)"
+      placeholder="Type a message..."
+      class="message-input"
+      [clearInput]="true"
+    >
+    </ion-input>
+
+    <ion-button
+      (click)="sendMessage()"
+      [disabled]="!newMessage.trim()"
+      class="send-button"
+      shape="round"
+    >
+      <ion-icon slot="icon-only" name="send"></ion-icon>
+    </ion-button>
+  </div>
+</div>

@@ -25,7 +25,7 @@
           <h1>Welcome Back!</h1>
           <p class="subtitle">Continue your learning journey</p>
 
-          <ion-item lines="none">
+          <ion-item lines="none" class="ion-item">
             <ion-label
               style="font-weight: 600"
               color="secondary"
@@ -33,6 +33,7 @@
               >Username</ion-label
             >
             <ion-input
+              class="ion-input"
               type="text"
               placeholder="Username"
               name="username"
@@ -41,7 +42,7 @@
             ></ion-input>
           </ion-item>
 
-          <ion-item lines="none">
+          <ion-item lines="none" class="ion-item">
             <ion-label
               style="font-weight: 600"
               color="secondary"
@@ -49,6 +50,7 @@
               >Password</ion-label
             >
             <ion-input
+              class="ion-input"
               type="password"
               placeholder="••••••••"
               name="password"
@@ -81,7 +83,7 @@
               Join thousands of learners using AI-powered education
             </p>
 
-            <ion-item lines="none">
+            <ion-item lines="none" class="ion-item">
               <ion-label
                 style="font-weight: 600"
                 color="secondary"
@@ -89,6 +91,7 @@
                 >Username <span style="color: red">*</span></ion-label
               >
               <ion-input
+                class="ion-input"
                 type="text"
                 placeholder="Username"
                 name="username"
@@ -97,82 +100,64 @@
               ></ion-input>
             </ion-item>
 
-            <ion-item lines="none">
+            <ion-item lines="none" class="ion-item">
               <ion-label
                 style="font-weight: 600"
                 color="secondary"
                 position="stacked"
-                >First Name</ion-label
+                >First Name<span style="color: red">*</span></ion-label
               >
               <ion-input
+                class="ion-input"
                 type="text"
                 placeholder="First Name"
-                name="fname"
+                name="first_name"
                 [(ngModel)]="user.first_name"
+                required
               ></ion-input>
             </ion-item>
 
-            <ion-item lines="none">
+            <ion-item lines="none" class="ion-item">
               <ion-label
                 style="font-weight: 600"
                 color="secondary"
                 position="stacked"
-                >Last Name</ion-label
+                >Last Name<span style="color: red">*</span></ion-label
               >
               <ion-input
+                class="ion-input"
                 type="text"
                 placeholder="Last Name"
-                name="lname"
+                name="last_name"
                 [(ngModel)]="user.last_name"
+                required
               ></ion-input>
             </ion-item>
 
-            <!-- <ion-item lines="none">
-              <ion-label
-                style="font-weight: 600"
-                color="secondary"
-                position="stacked"
-              >
-                Date Of Birth
-              </ion-label>
+            <div>
+              <ion-item lines="none" class="ion-item">
+                <ion-label
+                  color="secondary"
+                  style="font-weight: 600; font-size: 0.875rem"
+                  >Date Of Birth</ion-label
+                >
+              </ion-item>
 
-              <ion-datetime-button
-                datetime="dob-datetime"
-              ></ion-datetime-button>
+              <ion-item class="input-item">
+                <ion-icon
+                  slot="start"
+                  name="calendar-outline"
+                  class="input-icon"
+                ></ion-icon>
 
-              <ion-modal [keepContentsMounted]="true">
-                <ng-template>
-                  <ion-datetime
-                    id="dob-datetime"
-                    presentation="date"
-                    [(ngModel)]="user.date_of_birth"
-                    name="date_of_birth"
-                    (ionChange)="onDateChange($event)"
-                  ></ion-datetime>
-                </ng-template>
-              </ion-modal>
-            </ion-item> -->
-
-            <ion-label
-              style="font-weight: 600"
-              color="secondary"
-              position="stacked"
-              >Date Of Birth</ion-label
-            >
-
-            <ion-item class="input-item">
-              <ion-icon
-                slot="start"
-                name="calendar-outline"
-                class="input-icon"
-              ></ion-icon>
-              <ion-datetime-button
-                datetime="dob"
-                class="custom-datetime-button"
-              ></ion-datetime-button>
-            </ion-item>
-
-            <!--  modal -->
+                <!-- Put button directly here -->
+                <ion-datetime-button
+                  datetime="dob"
+                  class="custom-datetime-button"
+                ></ion-datetime-button>
+              </ion-item>
+            </div>
+            <!-- Move modal OUTSIDE of the ion-item -->
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
                 <ion-datetime
@@ -184,16 +169,13 @@
                 ></ion-datetime>
               </ng-template>
             </ion-modal>
-
-            <ion-text
-              color="medium"
-              *ngIf="user?.date_of_birth"
-              class="date-preview"
-            >
+            @if (user.date_of_birth) {
+            <ion-text color="medium" class="date-preview">
               You picked: {{ user.date_of_birth | date: 'fullDate' }}
             </ion-text>
+            }
 
-            <ion-item lines="none">
+            <ion-item lines="none" class="ion-item">
               <ion-label
                 style="font-weight: 600"
                 color="secondary"
@@ -201,6 +183,7 @@
                 >Email<span style="color: red">*</span></ion-label
               >
               <ion-input
+                class="ion-input"
                 type="text"
                 placeholder="example@gmail.com"
                 name="email"
@@ -209,7 +192,7 @@
               ></ion-input>
             </ion-item>
 
-            <ion-item lines="none">
+            <ion-item lines="none" class="ion-item">
               <ion-label
                 style="font-weight: 600"
                 color="secondary"
@@ -217,6 +200,7 @@
                 >Phone Number<span style="color: red">*</span></ion-label
               >
               <ion-input
+                class="ion-input"
                 type="text"
                 placeholder="00 000 000"
                 name="tel"
@@ -225,7 +209,7 @@
               ></ion-input>
             </ion-item>
 
-            <ion-item lines="none">
+            <ion-item lines="none" class="ion-item">
               <ion-label
                 style="font-weight: 600"
                 color="secondary"
@@ -247,7 +231,7 @@
               </ion-select>
             </ion-item>
 
-            <ion-item lines="none">
+            <ion-item lines="none" class="ion-item">
               <ion-label
                 style="font-weight: 600"
                 color="secondary"
@@ -255,7 +239,8 @@
                 >Password<span style="color: red">*</span></ion-label
               >
               <ion-input
-                type="text"
+                class="ion-input"
+                type="password"
                 placeholder="••••••••"
                 name="password"
                 [(ngModel)]="user.password"
@@ -263,7 +248,7 @@
               ></ion-input>
             </ion-item>
 
-            <ion-item lines="none">
+            <ion-item lines="none" class="ion-item">
               <ion-label
                 style="font-weight: 600"
                 color="secondary"
@@ -271,7 +256,8 @@
                 >Confirm Password<span style="color: red">*</span></ion-label
               >
               <ion-input
-                type="text"
+                class="ion-input"
+                type="password"
                 placeholder="••••••••"
                 name="password2"
                 [(ngModel)]="password2"

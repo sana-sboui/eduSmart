@@ -178,7 +178,7 @@ export class Auth {
         role: decoded.role,
         email: decoded.email,
       };
-      console.log('user', user);
+      // console.log('user', user);
       this.currentUserSubject.next(user);
       return user;
     } catch (error) {

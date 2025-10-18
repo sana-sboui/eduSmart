@@ -66,7 +66,7 @@ class ChangePasswordSerializer(serializers.Serializer):
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'tel','date_of_birth', 'speciality', 'password']
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'tel','date_of_birth', 'speciality', 'password','profile_picture']
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -105,7 +105,7 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = UserSerializer.Meta.fields + ['status']
-
+        
     def get_profile_picture(self, obj):
         request = self.context.get('request')
         if obj.profile_picture:
