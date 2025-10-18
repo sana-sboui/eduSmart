@@ -1,3 +1,78 @@
+.illustration-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  animation: fadeInDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lock-icon-container {
+  width: 110px;
+  height: 110px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 97, 122, 0.1) 0%,
+    rgba(87, 149, 162, 0.1) 100%
+  );
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.lock-icon-container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+.lock-icon {
+  width: 60px;
+  height: 60px;
+  color: var(--ion-color-primary);
+  position: relative;
+  z-index: 1;
+}
+
+/* Title and Description */
+.title-section {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 20px;
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s backwards;
+}
+
+.title-section h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ion-color-primary);
+  margin-bottom: 8px;
+  margin-top: -12px;
+  letter-spacing: -0.5px;
+}
+
+.title-section p {
+  font-size: 15px;
+  color: var(--ion-color-medium);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
 .title-container {
   display: flex;
   justify-content: space-between;
@@ -30,14 +105,14 @@
 }
 
 ion-searchbar {
-  margin: 1rem 0;
-  --background: #f8fafb;
-  --color: var(--ion-color-primary);
-  --border-radius: 12px;
-  --box-shadow: 0 2px 8px rgba(0, 97, 122, 0.08);
-  --icon-color: var(--ion-color-medium);
-  --placeholder-color: var(--ion-color-medium);
-  --placeholder-opacity: 1;
+  margin-top: -38px;
+  --background: #ffffff;
+  --color: #00617a;
+  --placeholder-color: #83b0b6;
+  --icon-color: #5795a2;
+  --clear-button-color: #2b7b8e;
+  --cancel-button-color: #00617a;
+  --box-shadow: 0 2px 8px rgba(0, 97, 122, 0.1);
 }
 
 // Filters
@@ -224,4 +299,38 @@ ion-fab-button {
   &:hover {
     transform: scale(1.1);
   }
+}
+
+.student-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.student-avatar .avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #80a9a9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  position: relative;
+  transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.student-avatar .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.student-avatar .avatar:hover {
+  transform: scale(1.05);
 }

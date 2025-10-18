@@ -29,84 +29,110 @@ ion-segment-button.ios::part(indicator-background) {
 }
 
 .create-account-container {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-    padding-top: 2rem;
-  }
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 2rem;
+}
 
-  h1 {
-    font-weight: 700;
-    color: #00617a;
-  }
+h1 {
+  font-weight: 700;
+  color: #00617a;
+}
 
-  .subtitle {
-    color: #2b7b8e;
-    margin-bottom: 2rem;
-  }
+.subtitle {
+  color: #2b7b8e;
+  margin-bottom: 2rem;
+}
 
-  ion-item {
-    --background: transparent;
-    --padding-start: 0;
-    --inner-padding-end: 0;
-    margin-bottom: 1rem;
-  }
+.ion-item {
+  --background: transparent;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 1rem;
+}
+// .input-item {
+//   --background: #ffffff;
+//   --border-radius: 12px;
+//   --inner-padding-end: 0;
+//   --padding-start: 0;
 
+//   border: 2px solid #e2e8f0;
+//   border-radius: 12px;
+//   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+//   margin: 0;
 
-  ion-input {
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 10px;
-    --padding-start: 10px;
-    font-size: 15px;
-  }
+//   /* Remove default Ionic styles */
+//   --border-width: 0;
+//   --inner-border-width: 0;
+//   --show-full-highlight: false;
+//   --show-inset-highlight: false;
+//   --highlight-height: 0;
+// }
 
-  .terms {
-    font-size: 13px;
-    color: #718096;
-    margin-top: 1.5rem;
-  }
+.ion-input {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
+  --padding-start: 10px;
+  font-size: 15px;
+}
 
-  .terms a {
-    color: #0c8599;
-    text-decoration: none;
-    font-weight: 500;
-  }
+// .input-label {
+//   font-size: 14px;
+//   font-weight: 600;
+//   color: #475569;
+//   margin-bottom: 8px;
+//   display: block;
+//   --padding-start: 0;
+//   --inner-padding-end: 0;
+// }
+
+.terms {
+  font-size: 13px;
+  color: #718096;
+  margin-top: 1.5rem;
+}
+
+.terms a {
+  color: #0c8599;
+  text-decoration: none;
+  font-weight: 500;
+}
 
 ion-content {
   display: flex;
-  justify-content: center; 
-  align-items: center;    
-  height: 100%;   
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-
 .logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-    margin-top: 7rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  margin-top: 7rem;
 }
 
 .logo {
-    width: 300px;       
-    height: auto;
-    border-radius: 12px; 
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
 }
 
 .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 ion-card.card {
   width: 90%;
   max-width: 400px;
-  max-height: 60vh; 
-  overflow-y: auto; 
-  scrollbar-width: thin; 
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 ion-card.card::-webkit-scrollbar {
@@ -116,8 +142,6 @@ ion-card.card::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
-
-
 
 /* Style the datetime button to match your input fields */
 .custom-datetime-button::part(native) {
@@ -204,4 +228,46 @@ ion-card.card::-webkit-scrollbar-thumb {
   font-size: 14px;
   margin-top: 8px;
   display: block;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+  align-items: start;
+}
+
+/* Input Styling */
+.input-item {
+  --background: #ffffff;
+  --border-radius: 12px;
+  --inner-padding-end: 0;
+  --padding-start: 0;
+  margin-bottom: 1rem;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  // margin: 0;
+  padding-left: 10px;
+  margin-top: -20px;
+
+  /* Remove default Ionic styles */
+  --border-width: 0;
+  --inner-border-width: 0;
+  --show-full-highlight: false;
+  --show-inset-highlight: false;
+  --highlight-height: 0;
+
+  &.item-has-focus,
+  &:focus-within {
+    border-color: var(--ion-color-primary);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    transform: translateY(-1px);
+  }
+
+  &.item-has-value {
+    border-color: #cbd5e1;
+  }
 }

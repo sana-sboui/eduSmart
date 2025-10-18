@@ -29,9 +29,6 @@ import { NgZone } from '@angular/core';
     CommonModule,
     FormsModule,
     IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
     IonSearchbar,
     IonButton,
     IonIcon,
@@ -57,6 +54,10 @@ export class ListTeachersPage {
     this.loadTeachers();
   }
 
+  ionViewWillEnter() {
+    this.loadTeachers();
+  }
+
   loadTeachers() {
     this.teacherService.listTeachers().subscribe({
       next: (data) => {
@@ -64,9 +65,7 @@ export class ListTeachersPage {
         const specialities = Array.from(
           new Set(data.map((t) => t.speciality))
         ).filter((s) => !!s);
-        this.ngZone.run(() => {
-          this.filters = ['All', ...specialities];
-        });
+        this.filters = ['All', ...specialities];
       },
       error: (err) => {
         console.error('Error loading teachers:', err);
@@ -122,15 +121,11 @@ export class ListTeachersPage {
     await alert.present();
   }
 
-  private async deleteTeacher(teacherId: number) {
-    try {
-      await this.teacherService.deleteTeacher(teacherId).toPromise();
-      // Refresh the list after successful deletion
-      this.loadTeachers();
-    } catch (err) {
-      console.error('Error deleting teacher:', err);
-      this.showErrorAlert();
-    }
+  private deleteTeacher(teacherId: number) {
+    this.teacherService.deleteTeacher(teacherId).subscribe({
+      next: () => this.loadTeachers(),
+      error: () => this.showErrorAlert(),
+    });
   }
 
   async showErrorAlert() {

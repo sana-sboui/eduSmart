@@ -61,27 +61,6 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'create-teacher',
-    loadComponent: () =>
-      import('./create-teacher/create-teacher.page').then(
-        (m) => m.CreateTeacherPage
-      ),
-  },
-  {
-    path: 'list-teachers',
-    loadComponent: () =>
-      import('./list-teachers/list-teachers.page').then(
-        (m) => m.ListTeachersPage
-      ),
-  },
-  {
-    path: 'update-teacher/:id',
-    loadComponent: () =>
-      import('./update-teacher/update-teacher.page').then(
-        (m) => m.UpdateTeacherPage
-      ),
-  },
-  {
     path: 'group',
     loadComponent: () => import('./group/group.page').then((m) => m.GroupPage),
   },
