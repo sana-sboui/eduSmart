@@ -46,11 +46,11 @@ export class AppComponent {
 
   isAuthPage(): boolean {
     const url = this.router.url;
-    return url.includes('/login') || url.includes('/register');
+    return url.includes('/auth');
   }
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth']);
   }
 }

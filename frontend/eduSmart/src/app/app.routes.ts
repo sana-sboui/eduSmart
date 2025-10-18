@@ -2,13 +2,12 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    path: 'auth',
+    loadComponent: () => import('./auth/auth.page').then((m) => m.AuthPage),
   },
-
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'auth',
     pathMatch: 'full',
   },
   {
@@ -33,6 +32,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'list-students',
+    loadComponent: () =>
+      import('./list-students/list-students.page').then(
+        (m) => m.ListStudentsPage
+      ),
+  },
+  {
     path: 'chat-group/:id',
     loadComponent: () =>
       import('./chat-group/chat-group.page').then((m) => m.ChatGroupPage),
@@ -41,10 +47,6 @@ export const routes: Routes = [
     path: 'video-call',
     loadComponent: () =>
       import('./video-call/video-call.page').then((m) => m.VideoCallPage),
-  },
-  {
-    path: 'auth',
-    loadComponent: () => import('./auth/auth.page').then((m) => m.AuthPage),
   },
   {
     path: 'profile',
@@ -57,5 +59,9 @@ export const routes: Routes = [
       import('./password-change/password-change.page').then(
         (m) => m.PasswordChangePage
       ),
+  },
+  {
+    path: 'group',
+    loadComponent: () => import('./group/group.page').then((m) => m.GroupPage),
   },
 ];
