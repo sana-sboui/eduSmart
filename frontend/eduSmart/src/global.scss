@@ -79,12 +79,13 @@ ion-toast::part(icon) {
 // EDUSMART Toolbar Design
 .edusmart-toolbar {
   --background: linear-gradient(135deg, #ffffff 0%, #f0f7f9 100%);
-  --border-color: #2b7b8e;
-  --border-width: 0 0 2px 0;
+  --border-color: #2b7b8e !important ;
+  --border-width: 0 0 3px 0 !important ;
   --border-style: solid;
   --min-height: 64px;
   --padding-start: 16px;
   --padding-end: 16px;
+  border-radius: 20px 20px 20px 20px !important;
 }
 
 .edusmart-menu-btn {
