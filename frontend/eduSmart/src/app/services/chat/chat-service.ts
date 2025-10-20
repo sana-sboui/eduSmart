@@ -9,11 +9,11 @@ import { Auth } from '../auth/auth';
 export class ChatService {
   private ws!: WebSocket;
   messages = signal<ChatMessage[]>([]);
-  private groupId!: number;
+  private groupId!: string;
 
   constructor(private authService: Auth) {}
 
-  connect(groupId: number) {
+  connect(groupId: string) {
     this.groupId = groupId;
     this.ws = new WebSocket(`ws://127.0.0.1:8010/ws/chat/${groupId}/`);
 

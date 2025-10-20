@@ -36,7 +36,7 @@ import { ActivatedRoute } from '@angular/router';
   ],
 })
 export class ChatGroupPage {
-  groupId!: number;
+  groupId: string | null = null;
   currentUser = this.authService.getCurrentUser();
   private shouldScrollToBottom = true;
   newMessage = '';
@@ -51,8 +51,16 @@ export class ChatGroupPage {
   private previousMessageCount = 0;
 
   ngOnInit() {
-    this.groupId = Number(this.route.snapshot.paramMap.get('id'));
-    this.chatService.connect(this.groupId);
+    // this.groupId = this.route.snapshot.paramMap.get('id');
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.groupId = id;
+        this.chatService.connect(id);
+      } else {
+        console.error('No group ID found in route.');
+      }
+    });
   }
 
   ngAfterViewChecked() {
@@ -66,7 +74,7 @@ export class ChatGroupPage {
   ngAfterContentChecked() {
     const currentCount = this.chatService.messages().length;
 
-    // 👇 scroll only when a new message arrives
+    // scroll only when a new message arrives
     if (currentCount !== this.previousMessageCount) {
       this.previousMessageCount = currentCount;
       setTimeout(() => this.scrollToBottom(), 100);
@@ -109,7 +117,7 @@ export class ChatGroupPage {
 
   scrollToBottom() {
     if (this.ionContent) {
-      this.ionContent.scrollToBottom(300); // 300ms animation
+      this.ionContent.scrollToBottom(300); // 300ms
     }
   }
 

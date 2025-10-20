@@ -65,6 +65,18 @@ export const routes: Routes = [
     loadComponent: () => import('./group/group.page').then((m) => m.GroupPage),
   },
   {
+    path: 'group-details/:id',
+    loadComponent: () => import('./group-details/group-details/group-details.page').then( m => m.GroupDetailsPage)
+  },
+  {
+    path: 'group-create',
+    loadComponent: () => import('./group-create/group-create/group-create.page').then( m => m.GroupCreatePage)
+  },
+  {
+    path: 'group-update/:id',
+    loadComponent: () => import('./group-update/group-update/group-update.page').then( m => m.GroupUpdatePage)
+  },
+  {
     path: 'upload-cours',
     loadComponent: () => import('./upload-cours/upload-cours.page').then( m => m.UploadCoursPage)
   },

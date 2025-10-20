@@ -21,7 +21,11 @@
 .lock-icon-container {
   width: 110px;
   height: 110px;
-  background: linear-gradient(135deg, rgba(0, 97, 122, 0.1) 0%, rgba(87, 149, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 97, 122, 0.1) 0%,
+    rgba(87, 149, 162, 0.1) 100%
+  );
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -31,13 +35,18 @@
 }
 
 .lock-icon-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transform: rotate(45deg);
   animation: shimmer 3s infinite;
 }
@@ -93,10 +102,14 @@
 }
 
 .section-title::before {
-  content: '';
+  content: "";
   width: 4px;
   height: 16px;
-  background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-secondary-tint) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--ion-color-primary) 0%,
+    var(--ion-color-secondary-tint) 100%
+  );
   border-radius: 2px;
 }
 
@@ -118,13 +131,17 @@
 }
 
 .course-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(180deg, var(--ion-color-primary), var(--ion-color-secondary));
+  background: linear-gradient(
+    180deg,
+    var(--ion-color-primary),
+    var(--ion-color-secondary)
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -139,9 +156,16 @@
 }
 
 .course-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
+  // display: flex;
+  // align-items: flex-start;
+  // gap: 20px;
+  // margin-bottom: 24px;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
   margin-bottom: 24px;
 }
 
@@ -172,7 +196,7 @@
 
 .book-icon::before,
 .book-icon::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -212,6 +236,7 @@
   gap: 8px;
   color: var(--ion-color-medium);
   font-size: 14px;
+  margin-bottom: 24px;
 }
 
 .date-icon {
@@ -263,6 +288,7 @@
   font-weight: 600;
   font-size: 14px;
   transition: color 0.3s ease;
+  max-width: 250px;
 }
 
 .download-link:hover {
@@ -275,7 +301,11 @@
 }
 
 .btn-edit {
-  --background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+  --background: linear-gradient(
+    135deg,
+    var(--ion-color-primary),
+    var(--ion-color-secondary)
+  );
   --border-radius: 10px;
   --box-shadow: 0 4px 12px rgba(0, 97, 122, 0.25);
   font-weight: 600;
@@ -304,7 +334,11 @@
 .empty-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, rgba(0, 97, 122, 0.1) 0%, rgba(87, 149, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 97, 122, 0.1) 0%,
+    rgba(87, 149, 162, 0.1) 100%
+  );
   border-radius: 20px;
   display: flex;
   align-items: center;

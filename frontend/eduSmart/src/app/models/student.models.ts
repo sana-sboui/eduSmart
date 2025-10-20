@@ -1,6 +1,7 @@
+import { Group } from './group.models';
 import { User } from './user.models';
 
 export interface Student extends User {
-  group?: { id: number; name: string };
+  group?: Group;
   status: string;
 }

@@ -1,17 +1,74 @@
-<ion-card *ngFor="let group of groups">
-  <ion-card-header>
-    <ion-card-title>{{ group.name }}</ion-card-title>
-    <ion-card-subtitle>Teacher: {{ group.teacher_detail!.first_name }} {{ group.teacher_detail!.last_name }}</ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content>
-    <p>{{ group.description }}</p>
-    <ion-list>
-      <ion-list-header>
-        <ion-label>Students</ion-label>
-      </ion-list-header>
-      <ion-item *ngFor="let student of group.students_detail">
-        {{ student.first_name }} {{ student.last_name }}
-      </ion-item>
-    </ion-list>
-  </ion-card-content>
-</ion-card>
+<ion-content [fullscreen]="true" class="content">
+  <div id="form-container" class="form-container">
+    <div class="illustration-section">
+      <div class="lock-icon-container">
+        <ion-icon name="people-outline" class="icon-xl"></ion-icon>
+      </div>
+    </div>
+
+    <div class="title-section">
+      <h1>Manage Study Groups</h1>
+      <p>View, update, or remove groups and oversee assigned teachers.</p>
+    </div>
+
+    @if (groups.length > 0) {
+      <ion-button fill="outline" size="small" (click)="createGroup()" class="action-btn create-grp-btn" style="justify-content: flex-end;">
+        <ion-icon name="add-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      @for (group of groups; track $index) {
+      <ion-card>
+        <div class="card-header-content">
+          <div class="group-info-left">
+            <div class="group-name">{{ group.name }}</div>
+            
+            <div class="teacher-info-container">
+              <div class="teacher-badge">
+                <ion-icon name="person-circle-outline"></ion-icon>
+                  {{ group.teacher_detail!.first_name }} {{ group.teacher_detail!.last_name }}
+              </div>
+            </div>
+          </div>
+          
+          <div class="action-buttons">
+            <ion-button fill="outline" size="small" (click)="viewGroup(group.id)" class="action-btn view-btn">
+              <ion-icon name="eye-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button fill="outline" size="small" (click)="updateGroup(group.id)" class="action-btn update-btn">
+              <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button [id]="'delete-alert-' + group.id" fill="outline" size="small" class="action-btn delete-btn">
+              <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-alert
+              [trigger]="'delete-alert-' + group.id"
+              header="Confirm Delete"
+              message="Are you sure you want to delete this teacher?"
+              [buttons]="alertButtons(group.id)">
+            </ion-alert>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="description-section">
+            <div class="section-title">Description</div>
+            <p class="description-text" [class.no-description]="!group.description">
+              {{ group.description || 'No description available for this group' }}
+            </p>
+          </div>
+        </div>
+      </ion-card>
+      }
+    } @else {
+      <!-- Empty state message -->
+      <div class="empty-state">
+        <ion-icon name="sad-outline" class="empty-icon"></ion-icon>
+        <h2 class="h2no">No groups available at the moment</h2>
+        <p class="pno">Create a new study group to get started.</p>
+        <ion-button (click)="createGroup()" color="primary" class="create-btn">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          Create New Group
+        </ion-button>
+      </div>
+    }
+  </div>
+</ion-content>

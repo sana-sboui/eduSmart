@@ -12,7 +12,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'tel', 'date_of_birth', 'status', 'role', 'password']
+        fields = ['username', 'email', 'tel', 'date_of_birth', 'status', 'role', 'password','first_name','last_name']
 
     def create(self, validated_data):  
         status = validated_data.pop('status', None)
@@ -26,7 +26,9 @@ class RegisterSerializer(serializers.ModelSerializer):
                                    tel=user.tel,
                                    date_of_birth=user.date_of_birth,
                                    role=user.role,
-                                   password=user.password)
+                                   password=user.password,
+                                   first_name=user.first_name,
+                                   last_name=user.last_name)
         
         return user
 
@@ -92,7 +94,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id','username', 'first_name', 'last_name', 'email','tel', 'date_of_birth', 'role','profile_picture'
+            'id','username', 'first_name', 'last_name', 'email','tel', 'date_of_birth', 'role', 'profile_picture'
         ]
         read_only_fields = ['username', 'role']
     def get_profile_picture(self, obj):
@@ -105,7 +107,7 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = UserSerializer.Meta.fields + ['status']
-    
+        
     def get_profile_picture(self, obj):
         request = self.context.get('request')
         if obj.profile_picture:

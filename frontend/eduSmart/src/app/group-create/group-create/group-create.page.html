@@ -1,0 +1,168 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="illustration-section">
+    <div class="group-icon-container">
+      <ion-icon name="school-outline" class="group-icon"></ion-icon>
+    </div>
+  </div>
+  <div class="page-title-section">
+        <h1>Create a New Group</h1>
+        <p>Set up a group by adding a name, description, teacher, and students.</p>
+  </div>
+  <form [formGroup]="groupForm" class="group-form">
+    
+    <!-- Group Information Card -->
+    <ion-card class="form-card">
+      <ion-card-header>
+        <ion-card-title class="section-title">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          Group Information
+        </ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <!-- Group Name -->
+        <ion-item lines="none" class="form-item">
+          <ion-label position="stacked" class="form-label">
+            Group Name <span class="required">*</span>
+          </ion-label>
+          <ion-input
+            formControlName="name"
+            placeholder="e.g., Advanced Mathematics 2024"
+            type="text"
+            class="custom-input"
+          ></ion-input>
+        </ion-item>
+        <div class="error-message" *ngIf="groupForm.get('name')?.invalid && groupForm.get('name')?.touched">
+          <ion-text color="danger">
+            <small>Group name is required (minimum 3 characters)</small>
+          </ion-text>
+        </div>
+
+        <!-- Description -->
+        <ion-item lines="none" class="form-item">
+          <ion-label position="stacked" class="form-label">
+            Description <span class="required">*</span>
+          </ion-label>
+          <ion-textarea
+            formControlName="description"
+            placeholder="Enter a brief description of the group..."
+            rows="4"
+            class="custom-textarea"
+            (ionInput)="groupForm.get('description')?.setValue($event.detail.value)"
+            (ionBlur)="groupForm.get('description')?.markAsTouched()"
+          ></ion-textarea>
+        </ion-item>
+        <div class="error-message" *ngIf="groupForm.get('description')?.invalid && groupForm.get('description')?.touched">
+          <ion-text color="danger">
+            <small>Description is required (minimum 5 characters)</small>
+          </ion-text>
+        </div>
+
+        <!-- Teacher Selection -->
+        <ion-item lines="none" class="form-item">
+          <ion-label position="stacked" class="form-label">
+            Select Teacher <span class="required">*</span>
+          </ion-label>
+          <ion-select
+            formControlName="teacher"
+            placeholder="Choose a teacher"
+            interface="popover"
+            class="custom-select"
+          >
+            <ion-select-option *ngFor="let teacher of teachers" [value]="teacher.id">
+              {{ teacher.first_name }} {{ teacher.last_name }} - {{ teacher.speciality }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div class="error-message" *ngIf="groupForm.get('teacher')?.invalid && groupForm.get('teacher')?.touched">
+          <ion-text color="danger">
+            <small>Please select a teacher</small>
+          </ion-text>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Students Selection Card -->
+    <ion-card class="form-card">
+      <ion-card-header>
+        <div class="students-header">
+          <ion-card-title class="section-title">
+            <ion-icon name="people-outline"></ion-icon>
+            Select Students
+            <ion-badge color="primary" class="student-count-badge">
+              {{ getSelectedCount() }} selected
+            </ion-badge>
+          </ion-card-title>
+          
+          <!-- Search Bar -->
+          <ion-searchbar
+            [(ngModel)]="searchTerm"
+            [ngModelOptions]="{standalone: true}"
+            placeholder="Search students..."
+            animated
+            class="custom-searchbar"
+          ></ion-searchbar>
+        </div>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <div class="students-grid">
+          <div
+            *ngFor="let student of filteredStudents"
+            class="student-card"
+            [class.selected]="isStudentSelected(student.id!)"
+            (click)="toggleStudentSelection(student.id!)"
+          >
+            <!-- Selection Indicator -->
+            <div class="selection-indicator" *ngIf="isStudentSelected(student.id!)">
+              <ion-icon name="checkmark-outline"></ion-icon>
+            </div>
+
+            <!-- Profile Photo -->
+            <div class="student-avatar" (click)="toggleStudentSelection(student.id!)">
+              <div class="avatar" [class.selected]="isStudentSelected(student.id!)">
+                <!-- Show photo if exists -->
+                <img *ngIf="student?.profile_picture" [src]="student?.profile_picture" 
+                    [alt]="student.first_name + ' ' + student.last_name">
+                
+                <!-- Show initials if no photo -->
+                <span *ngIf="!student.profile_picture">
+                  {{ (student.first_name!.charAt(0) + student.last_name!.charAt(0))?.toUpperCase() }}
+                </span>
+              </div>
+            </div>
+
+
+            <!-- Student Info -->
+            <div class="student-info">
+              <div class="student-name">
+                {{ student.first_name }} {{ student.last_name }}
+              </div>
+            </div>
+          </div>
+
+          <!-- No Results -->
+          <div *ngIf="filteredStudents.length === 0" class="no-results">
+            <ion-icon name="search-outline"></ion-icon>
+            <p>No students found</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Create Button -->
+    <div class="submit-section">
+      <ion-button
+        expand="block"
+        size="large"
+        (click)="createGroup()"
+        [disabled]="groupForm.invalid"
+        class="create-button"
+      >
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Create Group
+      </ion-button>
+    </div>
+
+  </form>
+</ion-content>

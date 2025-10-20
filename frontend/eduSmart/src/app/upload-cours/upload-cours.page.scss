@@ -21,7 +21,11 @@
 .upload-icon-container {
   width: 110px;
   height: 110px;
-  background: linear-gradient(135deg, rgba(0, 97, 122, 0.1) 0%, rgba(87, 149, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 97, 122, 0.1) 0%,
+    rgba(87, 149, 162, 0.1) 100%
+  );
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -31,13 +35,18 @@
 }
 
 .upload-icon-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transform: rotate(45deg);
   animation: shimmer 3s infinite;
 }
@@ -111,7 +120,11 @@
 .icon-wrapper {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, rgba(0, 97, 122, 0.1) 0%, rgba(87, 149, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 97, 122, 0.1) 0%,
+    rgba(87, 149, 162, 0.1) 100%
+  );
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -130,7 +143,8 @@
   --inner-padding-end: 0;
 }
 
-.custom-input, .custom-textarea {
+.custom-input,
+.custom-textarea {
   font-size: 16px;
   color: var(--ion-color-secondary);
   --placeholder-color: #b0cbd3;
@@ -144,7 +158,11 @@
   border-radius: 16px;
   padding: 32px 24px;
   text-align: center;
-  background: linear-gradient(135deg, rgba(0, 97, 122, 0.02) 0%, rgba(87, 149, 162, 0.02) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 97, 122, 0.02) 0%,
+    rgba(87, 149, 162, 0.02) 100%
+  );
   cursor: pointer;
   transition: all 0.3s;
   position: relative;
@@ -153,7 +171,11 @@
 
 .file-upload-area:hover {
   border-color: var(--ion-color-primary);
-  background: linear-gradient(135deg, rgba(0, 97, 122, 0.05) 0%, rgba(87, 149, 162, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 97, 122, 0.05) 0%,
+    rgba(87, 149, 162, 0.05) 100%
+  );
 }
 
 .upload-placeholder {
@@ -323,7 +345,7 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  
+
   &:active {
     transform: scale(0.98);
     background: rgba(0, 97, 122, 0.02);
@@ -342,7 +364,11 @@
 .upload-icon-wrapper {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, rgba(0, 97, 122, 0.1) 0%, rgba(87, 149, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 97, 122, 0.1) 0%,
+    rgba(87, 149, 162, 0.1) 100%
+  );
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -415,7 +441,11 @@
 .file-icon-container {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, rgba(0, 97, 122, 0.1) 0%, rgba(87, 149, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 97, 122, 0.1) 0%,
+    rgba(87, 149, 162, 0.1) 100%
+  );
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -431,6 +461,8 @@
 .file-info {
   flex: 1;
   min-width: 0;
+
+  overflow: hidden;
 }
 
 .file-name {
@@ -441,6 +473,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  max-width: 100%;
 }
 
 .file-meta {
@@ -473,7 +507,7 @@
   justify-content: center;
   color: #eb5757;
   transition: all 0.2s;
-  
+
   &:active {
     background: rgba(235, 87, 87, 0.2);
     transform: scale(0.9);
@@ -516,7 +550,11 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--ion-color-primary) 0%, var(--ion-color-secondary) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--ion-color-primary) 0%,
+    var(--ion-color-secondary) 100%
+  );
   border-radius: 3px;
   transition: width 0.3s ease;
 }
@@ -548,7 +586,7 @@
 /* Animation subtile au survol */
 .upload-button-mobile {
   transition: all 0.3s ease;
-  
+
   &:active {
     transform: translateY(1px);
   }
