@@ -86,7 +86,7 @@ export class AuthPage {
       this.authService
         .login(this.user.username, this.user.password!)
         .subscribe({
-          next: () => this.router.navigate(['/group']),
+          next: () => this.router.navigate(['/profile'], { replaceUrl: true }),
           error: (err) => {
             this.errorMessage = err.error.detail || 'Login failed';
           },
@@ -96,11 +96,26 @@ export class AuthPage {
         this.errorMessage = 'Passwords do not match';
         return;
       }
-      this.authService.register(this.user).subscribe({
-        next: () => this.router.navigate(['/auth']),
-        error: (err) =>
-          (this.errorMessage = err.error.detail || 'Registration failed'),
-      });
+      this.authService.register(this.user).subscribe({     
+      next: () => {
+        this.user = {
+          username: '',
+          email: '',
+          tel: '',
+          status: '',
+          role: 'ETUDIANT',
+          password: '',
+          first_name: '',
+          last_name: '',
+        };
+        this.password2 = '';
+        this.errorMessage = null;
+
+        // Switch back to login segment
+        this.authMode = 'login';
+      },
+      error: (err) => this.errorMessage = err.error.detail || 'Registration failed'
+    });
     }
   }
 

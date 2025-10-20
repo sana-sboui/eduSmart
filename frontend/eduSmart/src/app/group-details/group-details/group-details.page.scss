@@ -1,0 +1,358 @@
+// group-details.component.scss
+
+// Brand Colors
+$primary-color: #00617a;
+$secondary-color: #2b7b8e;
+$tertiary-color: #5795a2;
+$light-color: #83b0b6;
+$background-light: #f9fafb;
+
+ion-toolbar {
+  --background: #{$primary-color};
+  --color: #ffffff;
+}
+
+ion-content {
+  --background: #{$background-light};
+}
+
+.group-details-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+// Page Header
+.page-header {
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: $primary-color;
+  margin: 0;
+
+  ion-icon {
+    font-size: 2rem;
+    color: $secondary-color;
+  }
+}
+
+// Form Card Styling
+.form-card {
+  margin: 16px 0;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid $primary-color;
+  overflow: hidden;
+
+  ion-card-header {
+    background: linear-gradient(135deg, #ffffff 0%, $background-light 100%);
+    border-bottom: 1px solid #e8ecef;
+    padding: 16px 20px;
+  }
+
+  ion-card-content {
+    padding: 20px;
+  }
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $primary-color;
+  margin: 0;
+
+  ion-icon {
+    font-size: 1.4rem;
+    color: $secondary-color;
+  }
+}
+
+.student-count-badge {
+  margin-left: auto;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 12px;
+}
+
+// Info Card Specific Styles
+.info-card {
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .info-item {
+    background: $background-light;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateX(4px);
+      border-left-color: $secondary-color;
+      box-shadow: 0 2px 8px rgba(43, 123, 142, 0.1);
+    }
+
+    &.full-width {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .info-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $secondary-color;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+
+    ion-icon {
+      font-size: 1.1rem;
+    }
+  }
+
+  .info-value {
+    font-size: 1rem;
+    color: $primary-color;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .teacher-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .teacher-name {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .teacher-speciality {
+      font-size: 0.9rem;
+      color: $tertiary-color;
+      font-style: italic;
+    }
+  }
+}
+
+// Students Card
+.students-card {
+  .students-header {
+    .section-title {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 0;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.student-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #ffffff;
+  border: 2px solid #e8ecef;
+  border-radius: 14px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $tertiary-color;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(87, 149, 162, 0.15);
+  }
+}
+
+.student-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $light-color, $tertiary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 3px solid #e8ecef;
+    transition: all 0.3s ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-initials {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+    }
+  }
+
+  .student-card:hover & .avatar {
+    border-color: $tertiary-color;
+    transform: scale(1.05);
+  }
+}
+
+.student-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.student-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: $primary-color;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.student-email {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// No Results State
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #95a5a6;
+
+  ion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 0;
+    color: #7f8c8d;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.5rem;
+
+    ion-icon {
+      font-size: 1.7rem;
+    }
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+
+    ion-icon {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.illustration-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  animation: fadeInDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group-icon-container {
+  width: 110px;
+  height: 110px;
+  background: linear-gradient(135deg, rgba(0, 97, 122, 0.1) 0%, rgba(87, 149, 162, 0.1) 100%);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.group-icon-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+.group-icon {
+  width: 60px;
+  height: 60px;
+  color: var(--ion-color-primary);
+  position: relative;
+  z-index: 1;
+}
+
+/* Title and Description */
+.page-title-section {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 20px;
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s backwards;
+}
+
+.page-title-section h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ion-color-primary);
+  margin-bottom: 8px;
+  margin-top: -12px;
+  letter-spacing: -0.5px;
+}
+
+.page-title-section p {
+  font-size: 15px;
+  color: var(--ion-color-medium);
+  line-height: 1.5;
+  font-weight: 500;
+}

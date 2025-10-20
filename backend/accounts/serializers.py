@@ -94,7 +94,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id','username', 'first_name', 'last_name', 'email','tel', 'date_of_birth', 'role','profile_picture'
+            'id','username', 'first_name', 'last_name', 'email','tel', 'date_of_birth', 'role', 'profile_picture'
         ]
         read_only_fields = ['username', 'role']
     def get_profile_picture(self, obj):
@@ -107,7 +107,7 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = UserSerializer.Meta.fields + ['status']
-    
+        
     def get_profile_picture(self, obj):
         request = self.context.get('request')
         if obj.profile_picture:

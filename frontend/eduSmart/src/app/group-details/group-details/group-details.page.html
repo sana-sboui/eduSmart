@@ -1,0 +1,105 @@
+<!-- Only render content if group is loaded -->
+<ion-content [fullscreen]="true" class="ion-padding" *ngIf="group">
+  <div class="illustration-section">
+    <div class="group-icon-container">
+      <ion-icon name="information-circle-outline" class="group-icon"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Page Title and Description -->
+  <div class="page-title-section">
+    <h1>Group Details</h1>
+    <p>View all the information about this group, its teacher, and students.</p>
+  </div>
+
+  <div class="group-details-container">
+
+    <!-- Group Information Card -->
+    <ion-card class="form-card info-card">
+      <ion-card-header>
+        <ion-card-title class="section-title">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          Group Information
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">
+              <ion-icon name="bookmark-outline"></ion-icon>
+              Name
+            </div>
+            <div class="info-value">{{ group?.name }}</div>
+          </div>
+
+          <div class="info-item full-width">
+            <div class="info-label">
+              <ion-icon name="document-text-outline"></ion-icon>
+              Description
+            </div>
+            <div class="info-value">{{ group?.description || 'No description provided' }}</div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">
+              <ion-icon name="person-outline"></ion-icon>
+              Teacher
+            </div>
+            <div class="info-value">
+              <div class="teacher-info">
+                <span class="teacher-name">
+                  {{ group?.teacher_detail?.first_name }} {{ group?.teacher_detail?.last_name }}
+                </span>
+                <span class="teacher-speciality" *ngIf="group?.teacher_detail?.speciality">
+                  {{ group?.teacher_detail?.speciality }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Students List Card -->
+    <ion-card class="form-card students-card">
+      <ion-card-header>
+        <div class="students-header">
+          <ion-card-title class="section-title">
+            <ion-icon name="people-outline"></ion-icon>
+            Students
+            <ion-badge color="primary" class="student-count-badge">
+              {{ group?.students?.length || 0 }}
+            </ion-badge>
+          </ion-card-title>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="students-grid" *ngIf="group?.students_detail?.length">
+          <div *ngFor="let student of group?.students_detail" class="student-card">
+            <div class="student-avatar">
+              <div class="avatar">
+                <img *ngIf="student?.profile_picture" 
+                     [src]="student?.profile_picture" 
+                     [alt]="student.first_name + ' ' + student.last_name">
+                <span *ngIf="!student?.profile_picture" class="avatar-initials">
+                  {{ ((student?.first_name?.charAt(0) || '') + (student?.last_name?.charAt(0) || ''))?.toUpperCase() }}
+                </span>
+              </div>
+            </div>
+            <div class="student-info">
+              <div class="student-name">{{ student.first_name }} {{ student.last_name }}</div>
+              <div class="student-email">{{ student.email }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!group?.students_detail?.length" class="no-results">
+          <ion-icon name="people-outline"></ion-icon>
+          <p>No students assigned to this group</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+</ion-content>

@@ -29,6 +29,7 @@ import {
   peopleOutline,
   logOutOutline,
   personCircleOutline,
+  bookmarkOutline,
   cloudUploadOutline,
   folderOpenOutline,
   informationCircleOutline,
@@ -41,6 +42,11 @@ import {
   eyeOffOutline,
   arrowBackOutline,
   ribbonOutline,
+  chevronUp,
+  chevronDown,
+  chatbubbleEllipsesOutline,
+  settingsOutline,
+  gridOutline,
 } from 'ionicons/icons';
 
 export function registerIcons() {
@@ -75,9 +81,10 @@ export function registerIcons() {
     'home-outline': homeOutline,
     'log-out-outline': logOutOutline,
     'person-circle-outline': personCircleOutline,
+    'information-circle-outline': informationCircleOutline,
+    'bookmark-outline': bookmarkOutline,
     'cloud-upload-outline':cloudUploadOutline,
     'folder-open-outline':folderOpenOutline,
-    'information-circle-outline':informationCircleOutline,
     'close-outline': closeOutline,
     'document-outline':documentOutline,
     'easel-outline':easelOutline,
@@ -88,5 +95,10 @@ export function registerIcons() {
     'eye-off-outline': eyeOffOutline,
     'arrow-back-outline': arrowBackOutline,
     'ribbon-outline': ribbonOutline,
+    'chevron-up': chevronUp,
+    'chevron-down': chevronDown,
+    'chatbubble-ellipses-outline': chatbubbleEllipsesOutline,
+    'settings-outline': settingsOutline,
+    'grid-outline': gridOutline
   });
 }
