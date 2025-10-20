@@ -23,7 +23,7 @@ import {
   IonFab,
 } from '@ionic/angular/standalone';
 import { ActionSheetController } from '@ionic/angular';
-import { Profile } from '../services/profile/profile';
+import { profileService } from '../services/profile/profile';
 import { Photos } from '../services/photos';
 
 @Component({
@@ -58,19 +58,15 @@ export class ProfilePage implements OnInit {
   maxDate: string = new Date().toISOString().split('T')[0];
   originalProfilePicture: string | null = null;
   statusChoices: [string, string][] = [
-    ['STUDENT', 'Student'],
-    ['EMPLOYEE', 'Employee'],
-    ['OTHER', 'Other'],
-  ];
-  statusSelectOptions = {
-    header: 'Select Status',
-    translucent: true,
-  };
-  constructor(
-    private profileService: Profile,
-    private photoSer: Photos,
-    private actionSheetCtrl: ActionSheetController
-  ) {}
+  ['STUDENT', 'Student'],
+  ['EMPLOYEE', 'Employee'],
+  ['OTHER', 'Other'],
+];
+statusSelectOptions = {
+  header: 'Select Status',
+  translucent: true,
+};
+  constructor(private profileService: profileService,private photoSer: Photos, private actionSheetCtrl: ActionSheetController,) {}
 
   ngOnInit() {
     this.loadProfile();

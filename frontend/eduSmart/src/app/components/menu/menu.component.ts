@@ -88,17 +88,17 @@ export class MenuComponent {
   }
 
   navigateTo(url: string) {
-    this.router.navigateByUrl(url);
+    this.router.navigate([url]);
     this.setActiveItem(url);
   }
 
   navigateToProfile() {
-    this.router.navigateByUrl('/profile');
+    this.router.navigate(['/profile']);
     this.setActiveItem('/profile');
   }
 
   navigateToChangePassword() {
-    this.router.navigateByUrl('/password-change');
+    this.router.navigate(['/password-change']);
     this.setActiveItem('/password-change');
   }
 

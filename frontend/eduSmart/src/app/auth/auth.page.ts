@@ -63,7 +63,6 @@ export class AuthPage {
     translucent: true,
   };
   maxDate = new Date().toISOString();
-  // date_of_birth: new Date(),
   user: User = {
     username: '',
     email: '',
@@ -87,7 +86,7 @@ export class AuthPage {
       this.authService
         .login(this.user.username, this.user.password!)
         .subscribe({
-          next: () => this.router.navigate(['/group'], { replaceUrl: true }),
+          next: () => this.router.navigate(['/profile'], { replaceUrl: true }),
           error: (err) => {
             this.errorMessage = err.error.detail || 'Login failed';
           },
