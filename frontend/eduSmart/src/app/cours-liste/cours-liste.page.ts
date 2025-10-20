@@ -40,7 +40,7 @@ export class CoursListePage implements OnInit {
     this.navCtrl.navigateForward('/upload-cours');
   }
   editCourse(course: Course) {
-    this.navCtrl.navigateForward(`/edit-cours/${course.id}`);
+    this.navCtrl.navigateForward(`/cours-edit/${course.id}`);
   }
   async onDelete(course: Course) {
     const alert = await this.alertController.create({

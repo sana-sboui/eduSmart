@@ -34,8 +34,12 @@ class CourseViewSet(viewsets.ModelViewSet):
         if user.role == 'ENSEIGNANT':
             return Course.objects.filter(teacher=user)
         elif user.role == 'ETUDIANT':
-            return Course.objects.filter(groups__in=user.student_groups.all()).distinct()
-        return Course.objects.none()
+            from accounts.models import Student
+            try:
+                student = Student.objects.get(pk=user.id)
+                return Course.objects.filter(groups__in=student.student_groups.all()).distinct()
+            except Student.DoesNotExist:
+                return Course.objects.none()
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)

@@ -1,17 +1,20 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonButton, IonCard, IonCardContent, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonTextarea, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonButton, IonCard, IonCardContent, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonSelect, IonSelectOption, IonTextarea, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { CoursesService } from '../services/courses/courses';
 import { Course } from '../models/course.model';
 import { finalize } from 'rxjs';
+import { GroupService } from '../services/group/group';
+import { Group } from '../models/group.models';
+import { Auth } from '../services/auth/auth';
 
 @Component({
   selector: 'app-upload-cours',
   templateUrl: './upload-cours.page.html',
   styleUrls: ['./upload-cours.page.scss'],
   standalone: true,
-  imports: [IonContent,IonInput,IonTextarea, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonIcon,IonCard,IonCardContent,IonItem,IonButton,ReactiveFormsModule]
+  imports: [IonContent,IonInput,IonTextarea, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonIcon,IonCard,IonCardContent,IonItem,IonButton,ReactiveFormsModule,IonSelectOption,IonSelect]
 })
 export class UploadCoursPage  {
 
@@ -22,14 +25,27 @@ export class UploadCoursPage  {
   uploadProgress = 0;
   loading = false;
   maxFileSize = 50 * 1024 * 1024; 
+  groups: Group[] = [];
+  teacherId =this.authService.getLoggedInUser()?.id; 
 
-  constructor(private fb: FormBuilder, private courseService: CoursesService) {
+  constructor(private fb: FormBuilder, private courseService: CoursesService,private groupService: GroupService,private authService:Auth) {
     this.courseForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
-      //groups: [[], Validators.required],
+      groups: [[], Validators.required],
     });
   }
+  ngOnInit() {
+    if (this.teacherId !== undefined) {
+  this.groupService.getGroupByUser(this.teacherId.toString()).subscribe({
+    next: (res) => {
+      this.groups = res;
+      console.log('Groups loaded:', this.groups);
+    },
+    error: (err) => console.error('Error fetching groups:', err)
+  });
+}
+}
 
   triggerFileInput() {
     this.fileInput.nativeElement.click();
@@ -48,18 +64,18 @@ export class UploadCoursPage  {
 
     uploadCourse() {
     if ( !this.courseForm.valid ||!this.selectedFile) {
-      alert('⚠️ Please fill all required fields and select a file.');
+      alert('Please fill all required fields and select a file.');
       return;
     }
 
-    const { title, description} = this.courseForm.value;
+    const { title, description,groups} = this.courseForm.value;
 
     const course: Course = {
       title,
       description,
       file: this.selectedFile,
-      teacher: 2, 
-      groups: [1, 2]
+      teacher:this.teacherId, 
+      groups: groups,
     };
 
     this.loading = true;
