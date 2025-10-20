@@ -15,21 +15,7 @@
 
     <!-- Courses List Section -->
     <div class="courses-section">
-      <div class="section-title">
-        Course Management
-      </div>
-
-      <!-- Add Course Button -->
-      <ion-button 
-        expand="block" 
-        class="add-course-btn" 
-        (click)="addNewCourse()"
-        color="primary">
-        <ion-icon name="add-outline" slot="start"></ion-icon>
-        New Course
-      </ion-button>
-
-      <!-- Courses Grid -->
+      <div class="section-title">Course Management</div>
       <div class="courses-grid">
         <ion-card class="course-card" *ngFor="let course of courses">
           <ion-card-content>
@@ -37,41 +23,41 @@
               <div class="course-icon">
                 <div class="book-icon"></div>
               </div>
-              <div class="course-title-section">
-                <h2 class="course-name">
-                  {{course.title }}
-                </h2>
-                <div class="course-upload-date">
-                  <ion-icon name="time-outline" class="date-icon"></ion-icon>
-                  <span>Uploaded: {{formatDate(course.created_at!)}}</span>
-                </div>
-              </div>
+              <h2 class="course-name">{{course.title }}</h2>
             </div>
-            
+            <div class="course-upload-date">
+              <ion-icon name="time-outline" class="date-icon"></ion-icon>
+              <span>Uploaded: {{formatDate(course.created_at!)}}</span>
+            </div>
             <p class="course-description">{{course.description}}</p>
-            
+
             <div class="course-meta">
               <div class="course-file">
-                <ion-icon name="download-outline" class="download-icon"></ion-icon>
+                <ion-icon
+                  name="download-outline"
+                  class="download-icon"
+                ></ion-icon>
                 <a [href]="course.file" target="_blank" class="download-link">
                   {{ getFileName(course.file||"") }}
                 </a>
               </div>
 
               <div class="course-actions">
-                <ion-button 
-                  fill="solid" 
+                <ion-button
+                  fill="solid"
                   size="small"
                   class="btn-edit"
-                  (click)="editCourse(course)">
+                  (click)="editCourse(course)"
+                >
                   <ion-icon name="create-outline" slot="start"></ion-icon>
                   Edit
                 </ion-button>
-                <ion-button 
-                  fill="outline" 
+                <ion-button
+                  fill="outline"
                   size="small"
                   class="btn-delete"
-                  (click)="onDelete(course)">
+                  (click)="onDelete(course)"
+                >
                   <ion-icon name="trash-outline" slot="start"></ion-icon>
                   Delete
                 </ion-button>
@@ -88,10 +74,12 @@
         </div>
         <h3>No Courses Yet</h3>
         <p>Start by creating your first course to share with students</p>
-        <ion-button fill="solid" color="primary" (click)="addNewCourse()">
-          Create First Course
-        </ion-button>
       </div>
     </div>
   </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addNewCourse()" color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

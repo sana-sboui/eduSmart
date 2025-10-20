@@ -1,7 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton,IonIcon, IonCard, IonCardContent, NavController, AlertController  } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonCard,
+  IonCardContent,
+  NavController,
+  AlertController,
+  IonFab,
+  IonFabButton,
+} from '@ionic/angular/standalone';
 import { Course } from '../models/course.model';
 import { CoursesService } from '../services/courses/courses';
 import { Auth } from '../services/auth/auth';
@@ -11,29 +25,38 @@ import { Auth } from '../services/auth/auth';
   templateUrl: './cours-liste.page.html',
   styleUrls: ['./cours-liste.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonButton,IonIcon,IonCard,IonCardContent]
+  imports: [
+    IonContent,
+    CommonModule,
+    FormsModule,
+    IonButton,
+    IonIcon,
+    IonCard,
+    IonCardContent,
+    IonFab,
+    IonFabButton,
+  ],
 })
 export class CoursListePage implements OnInit {
-
   courses: Course[] = [];
-  teacherId =this.authService.getLoggedInUser()?.id; 
+  teacherId = this.authService.getLoggedInUser()?.id;
 
   constructor(
     private courseService: CoursesService,
     private navCtrl: NavController,
     private alertController: AlertController,
-    private authService:Auth
+    private authService: Auth
   ) {}
   ngOnInit() {
     this.loadCourses();
   }
   loadCourses() {
-    console.log("id",this.teacherId)
+    console.log('id', this.teacherId);
     this.courseService.getCourses().subscribe({
       next: (data) => {
-        this.courses = data
+        this.courses = data;
       },
-      error: (err) => console.error('Erreur chargement cours:', err)
+      error: (err) => console.error('Erreur chargement cours:', err),
     });
   }
   addNewCourse() {
@@ -64,40 +87,56 @@ export class CoursListePage implements OnInit {
   async deleteCourse(course: Course) {
     this.courseService.deleteCourse(course.id!).subscribe({
       next: () => {
-        this.courses = this.courses.filter(c => c.id !== course.id);
+        this.courses = this.courses.filter((c) => c.id !== course.id);
       },
-      error: (err) => console.error('Erreur suppression:', err)
+      error: (err) => console.error('Erreur suppression:', err),
     });
   }
 
   formatDate(dateString: string): string {
-  if (!dateString) return '';
-  
-  try {
-    const date = new Date(dateString);
-    
-    if (isNaN(date.getTime())) {
-      return dateString; 
+    if (!dateString) return '';
+
+    try {
+      const date = new Date(dateString);
+
+      if (isNaN(date.getTime())) {
+        return dateString;
+      }
+
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return dateString;
     }
-    
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  } catch (error) {
-    console.error('Error formatting date:', error);
-    return dateString; 
-  }
-}
-getFileName(file?: string | File): string {
-  if (!file) return '';
-
-  if (file instanceof File) {
-    return file.name;
   }
 
-  return file.split('/').pop() || file;
-}
+  getFileName(file?: string | File): string {
+    if (!file) return '';
 
+    let fileName = '';
+
+    if (file instanceof File) {
+      fileName = file.name;
+    } else {
+      fileName = file.split('/').pop() || file;
+    }
+
+    // Remove file extension
+    fileName = fileName.replace(/\.[^/.]+$/, '');
+
+    // Split into parts by underscore
+    const parts = fileName.split('_');
+
+    // Check the last part ID or not
+    const lastPart = parts[parts.length - 1];
+    if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/.test(lastPart)) {
+      parts.pop();
+    }
+
+    return parts.join('_');
+  }
 }

@@ -46,8 +46,7 @@ export class ListTeachersPage {
   constructor(
     private teacherService: TeacherService,
     private router: Router,
-    private alertController: AlertController,
-    private ngZone: NgZone
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
