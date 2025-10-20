@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonIcon, IonCard, IonContent, IonAlert } from '@ionic/angular/standalone';
@@ -19,7 +19,7 @@ export class GroupPage implements OnInit {
   groups: Group[] = [];
   loading = true;
 
-  constructor(private groupService: GroupService, private router: Router) {}
+  constructor(private groupService: GroupService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.loadGroups();
@@ -34,6 +34,7 @@ export class GroupPage implements OnInit {
       next: (data) => {
         this.groups = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
