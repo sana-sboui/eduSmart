@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -27,9 +27,6 @@ import { StudentService } from '../services/student/student-service';
     CommonModule,
     FormsModule,
     IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
     IonSearchbar,
     IonButton,
     IonIcon,
@@ -45,8 +42,7 @@ export class ListStudentsPage {
   constructor(
     private studentService: StudentService,
     private router: Router,
-    private alertController: AlertController,
-    private ngZone: NgZone
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -66,9 +62,7 @@ export class ListStudentsPage {
           )
         );
 
-        this.ngZone.run(() => {
-          this.filters = ['All', ...groups];
-        });
+        this.filters = ['All', ...groups];
       },
       error: (err) => {
         console.error('Error loading students:', err);
@@ -124,7 +118,7 @@ export class ListStudentsPage {
   private async deleteStudent(studentId: number) {
     try {
       await this.studentService.deleteStudent(studentId).toPromise();
-      this.loadStudents(); // Refresh list
+      this.loadStudents();
     } catch (err) {
       console.error('Error deleting student:', err);
       this.showErrorAlert();

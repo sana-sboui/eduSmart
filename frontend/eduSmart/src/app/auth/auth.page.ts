@@ -63,7 +63,6 @@ export class AuthPage {
     translucent: true,
   };
   maxDate = new Date().toISOString();
-  // date_of_birth: new Date(),
   user: User = {
     username: '',
     email: '',
@@ -97,10 +96,11 @@ export class AuthPage {
         this.errorMessage = 'Passwords do not match';
         return;
       }
-      this.authService.register(this.user).subscribe({     
-      next: () => this.router.navigate(['/auth']),
-      error: (err) => this.errorMessage = err.error.detail || 'Registration failed'
-    });
+      this.authService.register(this.user).subscribe({
+        next: () => this.router.navigate(['/auth']),
+        error: (err) =>
+          (this.errorMessage = err.error.detail || 'Registration failed'),
+      });
     }
   }
 

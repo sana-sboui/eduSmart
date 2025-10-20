@@ -15,9 +15,7 @@
 
     <!-- Courses List Section -->
     <div class="courses-section">
-      <div class="section-title">
-        Group Course Management
-      </div>
+      <div class="section-title">Group Course Management</div>
 
       <!-- Courses Grid -->
       <div class="courses-grid">
@@ -27,27 +25,25 @@
               <div class="course-icon">
                 <div class="book-icon"></div>
               </div>
-              <div class="course-title-section">
-                <h2 class="course-name">
-                  {{course.title }}
-                </h2>
-                <div class="course-upload-date">
-                  <ion-icon name="time-outline" class="date-icon"></ion-icon>
-                  <span>Uploaded: {{formatDate(course.created_at!)}}</span>
-                </div>
-              </div>
+              <h2 class="course-name">{{course.title }}</h2>
             </div>
-            
+            <div class="course-upload-date">
+              <ion-icon name="time-outline" class="date-icon"></ion-icon>
+              <span>Uploaded: {{formatDate(course.created_at!)}}</span>
+            </div>
+
             <p class="course-description">{{course.description}}</p>
-            
+
             <div class="course-meta">
               <div class="course-file">
-                <ion-icon name="download-outline" class="download-icon"></ion-icon>
+                <ion-icon
+                  name="download-outline"
+                  class="download-icon"
+                ></ion-icon>
                 <a [href]="course.file" target="_blank" class="download-link">
                   {{ getFileName(course.file||"") }}
                 </a>
               </div>
-
             </div>
           </ion-card-content>
         </ion-card>
