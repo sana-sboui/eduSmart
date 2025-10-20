@@ -1,71 +1,203 @@
 <ion-menu contentId="main-content" class="custom-menu" side="end">
   <ion-header>
     <ion-toolbar>
-      <!-- User Header Section -->
+      <!-- User Header -->
       <div class="user-header">
-        <div class="user-profile">
-          <div class="user-avatar">JS</div>
-          <div class="user-info">
-            <div class="user-name">
-              {{ user.first_name }} {{ user.last_name }}
+        <ion-menu-toggle auto-hide="false">
+          <div class="user-profile" (click)="navigateToProfile()">
+            <div class="user-avatar" [class.has-image]="hasProfilePicture()">
+              <img
+                *ngIf="hasProfilePicture()"
+                [src]="profile"
+                [alt]="user.first_name + ' ' + user.last_name"
+                class="avatar-image"
+              />
+              <span *ngIf="!hasProfilePicture()" class="avatar-initials">
+                {{ getUserInitials() }}
+              </span>
             </div>
-            <div class="user-role">{{ user.role }}</div>
+            <div class="user-info">
+              <div class="user-name">
+                {{ user.first_name }} {{ user.last_name }}
+              </div>
+              <div class="user-role">{{ user.role }}</div>
+            </div>
+            <ion-icon
+              name="chevron-forward-outline"
+              class="profile-arrow"
+            ></ion-icon>
           </div>
-        </div>
+        </ion-menu-toggle>
       </div>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
-    <!-- Navigation Menu -->
     <div class="nav-menu">
-      <div class="nav-section-title">MAIN</div>
+      <!-- ADMIN SECTION -->
+      <ng-container *ngIf="user.role === 'ADMIN'">
+        <div class="nav-section-title" style="display: flex; align-items: center;">
+          <ion-icon name="grid-outline" style="font-size: 20px; margin-right: 8px;"></ion-icon>MAIN
+        </div>
 
-      <ion-list lines="none" class="menu-list">
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of filteredPages">
+        <ion-list lines="none" class="menu-list">
+          <!-- USERS DROPDOWN -->
           <ion-item
             button
             class="nav-item"
-            [class.active]="activeUrl === p.url"
-            routerLink="{{ p.url }}"
-            routerDirection="root"
-            (click)="setActiveItem(p.url)"
+            (click)="toggleAdminMenu('users')"
+            [class.active]="expandedAdminSection === 'users'"
+            style="--padding-start: 40px;"
           >
-            <div class="nav-icon">
-              <ion-icon [name]="p.icon"></ion-icon>
+            <span class="nav-label">Users</span>
+            <ion-icon
+              [name]="expandedAdminSection === 'users' ? 'chevron-up-outline' : 'chevron-down-outline'"
+              class="toggle-icon"
+            ></ion-icon>
+          </ion-item>
+
+          <!-- USERS SUBMENU -->
+          <div
+            class="group-submenu"
+            *ngIf="expandedAdminSection === 'users'"
+            style="margin-left: 1.5rem;"
+          >
+            <ion-menu-toggle auto-hide="false">
+              <ion-item
+                button
+                class="nav-subitem"
+                (click)="navigateTo('/list-teachers')"
+              >
+                <ion-icon name="school-outline" style="margin-right: 8px;"></ion-icon>
+                <span class="nav-label">Teachers</span>
+              </ion-item>
+            </ion-menu-toggle>
+
+            <ion-menu-toggle auto-hide="false">
+              <ion-item
+                button
+                class="nav-subitem"
+                (click)="navigateTo('/list-students')"
+              >
+                <ion-icon name="person-outline" style="margin-right: 8px;"></ion-icon>
+                <span class="nav-label">Students</span>
+              </ion-item>
+            </ion-menu-toggle>
+          </div>
+
+          <!-- GROUPS (direct link) -->
+          <ion-menu-toggle auto-hide="false">
+            <ion-item
+              button
+              class="nav-item"
+              (click)="navigateTo('/group')"
+              style="--padding-start: 40px;"
+            >
+              <span class="nav-label">Groups</span>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ng-container>
+
+      <!-- GROUPS SECTION for non-admin users -->
+      <ng-container *ngIf="user.role !== 'ADMIN'">
+        <div
+          class="nav-section-title"
+          style="display: flex; align-items: center;"
+        >
+          <ion-icon
+            name="people-outline"
+            style="font-size: 20px; margin-right: 8px;"
+          ></ion-icon>
+          GROUPS
+        </div>
+
+        <ion-list lines="none" class="menu-list">
+          <div *ngFor="let group of userGroups">
+            <ion-item
+              button
+              class="nav-item"
+              (click)="toggleGroup(group.id)"
+              [class.active]="expandedGroupId === group.id"
+              style="--padding-start: 40px;"
+            >
+              <span class="nav-label">{{ group.name }}</span>
+              <ion-icon
+                [name]="expandedGroupId === group.id ? 'chevron-up-outline' : 'chevron-down-outline'"
+                class="toggle-icon"
+              ></ion-icon>
+            </ion-item>
+
+            <div
+              class="group-submenu"
+              *ngIf="expandedGroupId === group.id"
+              style="margin-left: 1.5rem;"
+            >
+              <ion-menu-toggle auto-hide="false">
+                <ion-item
+                  button
+                  class="nav-subitem"
+                  (click)="navigateTo('/chat-group/' + group.id)"
+                >
+                  <ion-icon
+                    name="chatbubble-ellipses-outline"
+                    style="font-size: 20px; margin-right: 8px;"
+                  ></ion-icon>
+                  <span class="nav-label">Chat</span>
+                </ion-item>
+              </ion-menu-toggle>
+
+              <ion-menu-toggle auto-hide="false">
+                <ion-item
+                  button
+                  class="nav-subitem"
+                  (click)="navigateTo('/cours-group/' + group.id)"
+                >
+                  <ion-icon
+                    name="book-outline"
+                    style="font-size: 20px; margin-right: 8px;"
+                  ></ion-icon>
+                  <span class="nav-label">Courses</span>
+                </ion-item>
+              </ion-menu-toggle>
             </div>
-            <span class="nav-label">{{ p.title }}</span>
+          </div>
+        </ion-list>
+      </ng-container>
+
+      <!-- ACCOUNT SECTION -->
+      <div class="nav-section-title" style="display: flex; align-items: center;">
+        <ion-icon name="settings-outline" style="font-size: 20px; margin-right: 8px;"></ion-icon>ACCOUNT
+      </div>
+      <ion-list lines="none" class="menu-list">
+        <ion-menu-toggle auto-hide="false">
+          <ion-item
+            button
+            class="nav-item"
+            (click)="navigateToProfile()"
+            style="--padding-start: 40px;"
+          >
+            <span class="nav-label">Profile</span>
           </ion-item>
         </ion-menu-toggle>
-      </ion-list>
-
-      <div class="nav-section-title">ACCOUNT</div>
-
-      <ion-list lines="none" class="menu-list">
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of filteredAccounts">
+        <ion-menu-toggle auto-hide="false">
           <ion-item
             button
             class="nav-item"
-            routerLink="{{ p.url }}"
-            routerDirection="root"
-            (click)="setActiveItem(p.url)"
+            (click)="navigateToChangePassword()"
+            style="--padding-start: 40px;"
           >
-            <div class="nav-icon">
-              <ion-icon [name]="p.icon"></ion-icon>
-            </div>
-            <span class="nav-label">{{ p.title }}</span>
+            <span class="nav-label">Change Password</span>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
     </div>
 
-    <!-- Footer Section -->
+    <!-- Footer -->
     <div class="sidebar-footer">
       <ion-menu-toggle auto-hide="false">
         <ion-item button class="footer-item logout" (click)="onLogout()">
-          <div class="nav-icon">
-            <ion-icon name="log-out-outline"></ion-icon>
-          </div>
+          <ion-icon name="log-out-outline" style="margin-right: 8px;"></ion-icon>
           <span>Sign Out</span>
         </ion-item>
       </ion-menu-toggle>

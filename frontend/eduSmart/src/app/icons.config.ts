@@ -35,6 +35,11 @@ import {
   eyeOffOutline,
   arrowBackOutline,
   ribbonOutline,
+  chevronUp,
+  chevronDown,
+  chatbubbleEllipsesOutline,
+  settingsOutline,
+  gridOutline,
 } from 'ionicons/icons';
 
 export function registerIcons() {
@@ -76,5 +81,10 @@ export function registerIcons() {
     'eye-off-outline': eyeOffOutline,
     'arrow-back-outline': arrowBackOutline,
     'ribbon-outline': ribbonOutline,
+    'chevron-up': chevronUp,
+    'chevron-down': chevronDown,
+    'chatbubble-ellipses-outline': chatbubbleEllipsesOutline,
+    'settings-outline': settingsOutline,
+    'grid-outline': gridOutline
   });
 }

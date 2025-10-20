@@ -30,4 +30,8 @@ export class GroupService {
   getGroupById(id: number) {
     return this.http.get<Group>(`${this.apiUrl}${id}/`);
   }
+
+  getGroupByUser(id: string) {
+    return this.http.get<Group[]>(`${this.apiUrl}user/${id}/`);
+  }
 }
