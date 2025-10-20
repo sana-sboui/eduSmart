@@ -39,6 +39,7 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('accounts/', include("accounts.urls")),
     path('', include("group.urls")),
+    path('cours/', include('course.urls')),
     
 ]
 if settings.DEBUG:

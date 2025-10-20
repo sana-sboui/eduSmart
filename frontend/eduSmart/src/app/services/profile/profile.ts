@@ -7,7 +7,7 @@ import { Teacher } from 'src/app/models/teacher.models';
 @Injectable({
   providedIn: 'root'
 })
-export class Profile {
+export class profileService {
   private apiUrl = 'http://127.0.0.1:8000/accounts/auth/profile/';
 
   constructor(private http: HttpClient) {}

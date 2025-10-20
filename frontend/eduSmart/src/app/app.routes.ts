@@ -64,4 +64,18 @@ export const routes: Routes = [
     path: 'group',
     loadComponent: () => import('./group/group.page').then((m) => m.GroupPage),
   },
+  {
+    path: 'upload-cours',
+    loadComponent: () => import('./upload-cours/upload-cours.page').then( m => m.UploadCoursPage)
+  },
+  {
+    path: 'cours-liste',
+    loadComponent: () => import('./cours-liste/cours-liste.page').then( m => m.CoursListePage)
+  },
+  {
+    path: 'cours-group/:id',
+    loadComponent: () => import('./cours-group/cours-group.page').then( m => m.CoursGroupPage)
+  },
+
 ];
+

@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true" class="content">
+  <div class="form-container">
+    <!-- Illustration Section -->
+    <div class="illustration-section">
+      <div class="lock-icon-container">
+        <ion-icon name="people-outline" class="lock-icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Title Section -->
+    <div class="title-section">
+      <h1>Group Courses</h1>
+      <p>View and manage courses in this group</p>
+    </div>
+
+    <!-- Courses List Section -->
+    <div class="courses-section">
+      <div class="section-title">
+        Group Course Management
+      </div>
+
+      <!-- Courses Grid -->
+      <div class="courses-grid">
+        <ion-card class="course-card" *ngFor="let course of courses">
+          <ion-card-content>
+            <div class="course-header">
+              <div class="course-icon">
+                <div class="book-icon"></div>
+              </div>
+              <div class="course-title-section">
+                <h2 class="course-name">
+                  {{course.title }}
+                </h2>
+                <div class="course-upload-date">
+                  <ion-icon name="time-outline" class="date-icon"></ion-icon>
+                  <span>Uploaded: {{formatDate(course.created_at!)}}</span>
+                </div>
+              </div>
+            </div>
+            
+            <p class="course-description">{{course.description}}</p>
+            
+            <div class="course-meta">
+              <div class="course-file">
+                <ion-icon name="download-outline" class="download-icon"></ion-icon>
+                <a [href]="course.file" target="_blank" class="download-link">
+                  {{ getFileName(course.file||"") }}
+                </a>
+              </div>
+
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="courses.length === 0">
+        <div class="empty-icon">
+          <ion-icon name="people-outline"></ion-icon>
+        </div>
+        <h3>No Courses in This Group</h3>
+        <p>There are no courses available in this group yet</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

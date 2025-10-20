@@ -97,11 +97,10 @@ export class AuthPage {
         this.errorMessage = 'Passwords do not match';
         return;
       }
-      this.authService.register(this.user).subscribe({
-        next: () => this.router.navigate(['/login']),
-        error: (err) =>
-          (this.errorMessage = err.error.detail || 'Registration failed'),
-      });
+      this.authService.register(this.user).subscribe({     
+      next: () => this.router.navigate(['/auth']),
+      error: (err) => this.errorMessage = err.error.detail || 'Registration failed'
+    });
     }
   }
 
