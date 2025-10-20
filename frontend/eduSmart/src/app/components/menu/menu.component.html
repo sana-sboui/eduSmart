@@ -1,0 +1,74 @@
+<ion-menu contentId="main-content" class="custom-menu" side="start">
+  <ion-header>
+    <ion-toolbar>
+      <!-- User Header Section -->
+      <div class="user-header">
+        <div class="user-profile">
+          <div class="user-avatar">JS</div>
+          <div class="user-info">
+            <div class="user-name">
+              {{ user.first_name }} {{ user.last_name }}
+            </div>
+            <div class="user-role">{{ user.role }}</div>
+          </div>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <!-- Navigation Menu -->
+    <div class="nav-menu">
+      <div class="nav-section-title">MAIN</div>
+
+      <ion-list lines="none" class="menu-list">
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of filteredPages">
+          <ion-item
+            button
+            class="nav-item"
+            [class.active]="activeUrl === p.url"
+            routerLink="{{ p.url }}"
+            routerDirection="root"
+            (click)="setActiveItem(p.url)"
+          >
+            <div class="nav-icon">
+              <ion-icon [name]="p.icon"></ion-icon>
+            </div>
+            <span class="nav-label">{{ p.title }}</span>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+      <div class="nav-section-title">ACCOUNT</div>
+
+      <ion-list lines="none" class="menu-list">
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of filteredAccounts">
+          <ion-item
+            button
+            class="nav-item"
+            routerLink="{{ p.url }}"
+            routerDirection="root"
+            (click)="setActiveItem(p.url)"
+          >
+            <div class="nav-icon">
+              <ion-icon [name]="p.icon"></ion-icon>
+            </div>
+            <span class="nav-label">{{ p.title }}</span>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="sidebar-footer">
+      <ion-menu-toggle auto-hide="false">
+        <ion-item button class="footer-item logout" (click)="onLogout()">
+          <div class="nav-icon">
+            <ion-icon name="log-out-outline"></ion-icon>
+          </div>
+          <span>Sign Out</span>
+        </ion-item>
+      </ion-menu-toggle>
+    </div>
+  </ion-content>
+</ion-menu>

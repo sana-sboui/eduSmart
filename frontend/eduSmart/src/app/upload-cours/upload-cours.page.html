@@ -1,0 +1,151 @@
+<ion-content [fullscreen]="true" class="content">
+  <div id="form-container" class="form-container">
+
+    <!-- Illustration Section -->
+    <div class="illustration-section">
+      <div class="upload-icon-container">
+        <ion-icon name="cloud-upload-outline" class="upload-icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Title Section -->
+    <div class="title-section">
+      <h1>Upload New Course</h1>
+      <p>Share your knowledge by uploading course materials for your students</p>
+    </div>
+
+    <!-- Form Section -->
+    <form [formGroup]="courseForm" class="form-section" (ngSubmit)="uploadCourse()">
+
+      <!-- Course Name Card -->
+      <ion-card class="input-card">
+        <ion-card-content>
+          <div class="field-label">
+            <div class="icon-wrapper">
+              <ion-icon name="book-outline" class="icon-sm"></ion-icon>
+            </div>
+            Course Name
+          </div>
+          <ion-item lines="none" class="input-wrapper">
+            <ion-input 
+              type="text" 
+              formControlName="title"
+              placeholder="e.g., Introduction to Web Development"
+              class="custom-input">
+            </ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Description Card -->
+      <ion-card class="input-card">
+        <ion-card-content>
+          <div class="field-label">
+            <div class="icon-wrapper">
+              <ion-icon name="document-text-outline" class="icon-sm"></ion-icon>
+            </div>
+            Description
+          </div>
+          <ion-item lines="none" class="input-wrapper">
+            <ion-textarea 
+              formControlName="description"
+              placeholder="Provide a brief description of the course content..."
+              rows="4"
+              class="custom-textarea">
+            </ion-textarea>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Version mobile redesignée -->
+      <div class="mobile-upload-section">
+        <div class="upload-button-mobile" (click)="triggerFileInput()">
+          <div class="upload-button-content">
+            <div class="upload-icon-wrapper">
+              <ion-icon name="cloud-upload-outline" class="upload-button-icon"></ion-icon>
+            </div>
+            <div class="upload-button-text">
+              <div class="upload-title">Select Course File</div>
+              <div class="upload-subtitle">Tap to choose from your device</div>
+            </div>
+            <div class="upload-arrow">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="integrated-formats">
+            <span class="format-badge">PDF</span>
+            <span class="format-badge">DOC</span>
+            <span class="format-badge">MP4</span>
+            <span class="format-badge">PPT</span>
+            <span class="format-badge">ZIP</span>
+          </div>
+        </div>
+
+        <div class="file-preview-mobile" *ngIf="selectedFile">
+          <div class="file-preview-content">
+            <div class="file-icon-container">
+              <ion-icon [name]="getFileIcon(selectedFile)" class="file-type-icon"></ion-icon>
+            </div>
+            <div class="file-info">
+              <div class="file-name">{{ selectedFile.name }}</div>
+              <div class="file-meta">
+                <span class="file-size">{{ getFileSize(selectedFile.size) }}</span>
+                <span class="file-type">{{ getFileExtension(selectedFile.name) }}</span>
+              </div>
+            </div>
+            <button class="remove-file-btn" (click)="removeFile($event)" type="button">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </div>
+
+          <div class="upload-progress" *ngIf="loading">
+            <div class="progress-header">
+              <span class="progress-text">Uploading...</span>
+              <span class="progress-percentage">{{ uploadProgress }}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="uploadProgress"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="format-info" *ngIf="!selectedFile">
+          <ion-icon name="information-circle-outline" class="info-icon"></ion-icon>
+          <span>All common file types supported up to 50MB</span>
+        </div>
+      </div>
+
+      <input 
+        type="file" 
+        #fileInput 
+        style="display: none" 
+        (change)="onFileSelected($event)"
+        accept=".pdf,.doc,.docx,.mp4,.avi,.mov,.ppt,.pptx,.txt,.zip">
+
+      <!-- Confirmation Message -->
+      <div class="confirmation-section">
+        <div class="confirmation-icon">ℹ</div>
+        <div class="confirmation-text">Your course will be available to students immediately after upload</div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <ion-button 
+          expand="block" 
+          type="submit"
+          class="submit-button" 
+          color="primary">
+          Upload Course
+        </ion-button>
+
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          (click)="cancel()"
+          class="btn-secondary">
+          Cancel
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

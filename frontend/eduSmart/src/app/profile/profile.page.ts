@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar,IonItem, IonLabel, IonIcon,IonText, IonButton, IonButtons, IonBackButton, IonDatetimeButton,IonDatetime,IonModal,IonInput, IonSelectOption, IonSelect } from '@ionic/angular/standalone';
 import { ActionSheetController } from '@ionic/angular';
-import { Profile } from '../services/profile/profile';
+import { profileService } from '../services/profile/profile';
 import { Photos } from '../services/photos';
 
 
@@ -33,7 +33,7 @@ statusSelectOptions = {
   header: 'Select Status',
   translucent: true,
 };
-  constructor(private profileService: Profile,private photoSer: Photos, private actionSheetCtrl: ActionSheetController,) {}
+  constructor(private profileService: profileService,private photoSer: Photos, private actionSheetCtrl: ActionSheetController,) {}
 
   ngOnInit() {
     this.loadProfile();

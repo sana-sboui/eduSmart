@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, ToastController, IonButtons, IonLabel, IonItem, IonIcon, IonButton, IonInput, IonCard, IonCardContent } from '@ionic/angular/standalone';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Profile } from '../services/profile/profile';
+import { profileService } from '../services/profile/profile';
 
 @Component({
   selector: 'app-password-change',
@@ -27,7 +27,7 @@ export class PasswordChangePage  {
 
   constructor(
     private fb: FormBuilder,
-    private profileService: Profile,
+    private profileService: profileService,
     private toastCtrl: ToastController
   ) {
     this.passwordForm = this.fb.group(

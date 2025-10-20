@@ -7,7 +7,6 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth import authenticate,get_user_model
 from .serializers import ChangePasswordSerializer, RegisterSerializer, LoginSerializer, StudentProfileSerializer, TeacherProfileSerializer, UserProfileSerializer
 from django.contrib.auth import authenticate
-
 from accounts.models import Teacher
 from .serializers import RegisterSerializer, LoginSerializer, TeacherSerializer
 
@@ -25,11 +24,15 @@ class LoginView(generics.GenericAPIView):
         user = authenticate(username=username, password=password)
         if user:
             refresh = RefreshToken.for_user(user)
+            profile_picture = user.profile_picture.url if user.profile_picture else None
             return Response({
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
                 'username': user.username,
-                'role': user.role
+                'role': user.role,
+                'profile_picture':profile_picture,
+                'last_name':user.last_name,
+                'first_name':user.first_name
             })
         return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
     

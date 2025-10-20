@@ -42,7 +42,7 @@ export class AuthPage  {
     if (form.invalid) return;
      if (this.authMode === 'login') {
        this.authService.login(this.user.username, this.user.password!).subscribe({
-         next: () => this.router.navigate(['/home']),
+         next: () => this.router.navigate(['/group']),
          error: (err) => {
            this.errorMessage = err.error.detail || 'Login failed';
          }
@@ -53,7 +53,7 @@ export class AuthPage  {
         return;
       }
       this.authService.register(this.user).subscribe({     
-      next: () => this.router.navigate(['/login']),
+      next: () => this.router.navigate(['/auth']),
       error: (err) => this.errorMessage = err.error.detail || 'Registration failed'
     });
     }

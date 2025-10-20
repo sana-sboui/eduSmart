@@ -1,0 +1,97 @@
+<ion-content [fullscreen]="true" class="content">
+  <div class="form-container">
+    <!-- Illustration Section -->
+    <div class="illustration-section">
+      <div class="lock-icon-container">
+        <ion-icon name="book-outline" class="lock-icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Title Section -->
+    <div class="title-section">
+      <h1>My Courses</h1>
+      <p>Manage and organize your uploaded course materials</p>
+    </div>
+
+    <!-- Courses List Section -->
+    <div class="courses-section">
+      <div class="section-title">
+        Course Management
+      </div>
+
+      <!-- Add Course Button -->
+      <ion-button 
+        expand="block" 
+        class="add-course-btn" 
+        (click)="addNewCourse()"
+        color="primary">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        New Course
+      </ion-button>
+
+      <!-- Courses Grid -->
+      <div class="courses-grid">
+        <ion-card class="course-card" *ngFor="let course of courses">
+          <ion-card-content>
+            <div class="course-header">
+              <div class="course-icon">
+                <div class="book-icon"></div>
+              </div>
+              <div class="course-title-section">
+                <h2 class="course-name">
+                  {{course.title }}
+                </h2>
+                <div class="course-upload-date">
+                  <ion-icon name="time-outline" class="date-icon"></ion-icon>
+                  <span>Uploaded: {{formatDate(course.created_at!)}}</span>
+                </div>
+              </div>
+            </div>
+            
+            <p class="course-description">{{course.description}}</p>
+            
+            <div class="course-meta">
+              <div class="course-file">
+                <ion-icon name="download-outline" class="download-icon"></ion-icon>
+                <a [href]="course.file" target="_blank" class="download-link">
+                  {{ getFileName(course.file||"") }}
+                </a>
+              </div>
+
+              <div class="course-actions">
+                <ion-button 
+                  fill="solid" 
+                  size="small"
+                  class="btn-edit"
+                  (click)="editCourse(course)">
+                  <ion-icon name="create-outline" slot="start"></ion-icon>
+                  Edit
+                </ion-button>
+                <ion-button 
+                  fill="outline" 
+                  size="small"
+                  class="btn-delete"
+                  (click)="onDelete(course)">
+                  <ion-icon name="trash-outline" slot="start"></ion-icon>
+                  Delete
+                </ion-button>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="courses.length === 0">
+        <div class="empty-icon">
+          <ion-icon name="book-outline"></ion-icon>
+        </div>
+        <h3>No Courses Yet</h3>
+        <p>Start by creating your first course to share with students</p>
+        <ion-button fill="solid" color="primary" (click)="addNewCourse()">
+          Create First Course
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
