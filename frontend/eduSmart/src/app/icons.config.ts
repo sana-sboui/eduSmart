@@ -37,6 +37,10 @@ import {
   easelOutline,
   downloadOutline,
   timeOutline,
+  sendOutline,
+  eyeOffOutline,
+  arrowBackOutline,
+  ribbonOutline,
 } from 'ionicons/icons';
 
 export function registerIcons() {
@@ -70,7 +74,7 @@ export function registerIcons() {
     'add-circle': addCircle,
     'home-outline': homeOutline,
     'log-out-outline': logOutOutline,
-    ' person-circle-outline': personCircleOutline,
+    'person-circle-outline': personCircleOutline,
     'cloud-upload-outline':cloudUploadOutline,
     'folder-open-outline':folderOpenOutline,
     'information-circle-outline':informationCircleOutline,
@@ -79,6 +83,10 @@ export function registerIcons() {
     'easel-outline':easelOutline,
     'download-outline':downloadOutline,
     'time-outline':timeOutline,
-
+    send: sendOutline,
+    checkmark: checkmarkOutline,
+    'eye-off-outline': eyeOffOutline,
+    'arrow-back-outline': arrowBackOutline,
+    'ribbon-outline': ribbonOutline,
   });
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -12,85 +12,89 @@ import {
   IonToolbar,
   IonFabButton,
   IonFab,
+  AlertController,
 } from '@ionic/angular/standalone';
-import { Teacher } from '../models/teacher.models';
-import { TeacherService } from '../services/teacher/teacher';
-import { Auth } from '../services/auth/auth';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { NgZone } from '@angular/core';
+import { Student } from '../models/student.models';
+import { StudentService } from '../services/student/student-service';
 
 @Component({
-  selector: 'app-list-teachers',
-  templateUrl: './list-teachers.page.html',
-  styleUrls: ['./list-teachers.page.scss'],
+  selector: 'app-list-students',
+  templateUrl: './list-students.page.html',
+  styleUrls: ['./list-students.page.scss'],
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
     IonSearchbar,
     IonButton,
     IonIcon,
     IonCard,
-    IonFab,
-    IonFabButton,
   ],
 })
-export class ListTeachersPage {
+export class ListStudentsPage {
   filters: string[] = ['All'];
   activeFilter = 'All';
   searchTerm = '';
-  enseignants: Teacher[] = [];
+  students: Student[] = [];
 
   constructor(
-    private teacherService: TeacherService,
+    private studentService: StudentService,
     private router: Router,
     private alertController: AlertController,
     private ngZone: NgZone
   ) {}
 
   ngOnInit() {
-    this.loadTeachers();
+    this.loadStudents();
   }
 
-  ionViewWillEnter() {
-    this.loadTeachers();
-  }
-
-  loadTeachers() {
-    this.teacherService.listTeachers().subscribe({
+  loadStudents() {
+    this.studentService.listStudents().subscribe({
       next: (data) => {
-        this.enseignants = data;
-        const specialities = Array.from(
-          new Set(data.map((t) => t.speciality))
-        ).filter((s) => !!s);
-        this.filters = ['All', ...specialities];
+        this.students = data;
+
+        const groups = Array.from(
+          new Set(
+            data
+              .map((s) => s.group?.name)
+              .filter((name): name is string => !!name)
+          )
+        );
+
+        this.ngZone.run(() => {
+          this.filters = ['All', ...groups];
+        });
       },
       error: (err) => {
-        console.error('Error loading teachers:', err);
+        console.error('Error loading students:', err);
       },
     });
   }
 
-  get filteredTeachers() {
-    let filtered = this.enseignants;
+  get filteredStudents() {
+    let filtered = this.students;
 
     if (this.activeFilter !== 'All') {
       filtered = filtered.filter(
-        (teacher) => teacher.speciality === this.activeFilter
+        (student) => student.group?.name === this.activeFilter
       );
     }
 
     if (this.searchTerm) {
       const term = this.searchTerm.toLowerCase();
       filtered = filtered.filter(
-        (teacher) =>
-          teacher.first_name?.toLowerCase().includes(term) ||
-          teacher.last_name?.toLowerCase().includes(term) ||
-          teacher.speciality?.toLowerCase().includes(term)
+        (student) =>
+          student.first_name?.toLowerCase().includes(term) ||
+          student.last_name?.toLowerCase().includes(term) ||
+          student.group?.name?.toLowerCase().includes(term)
       );
     }
+
     return filtered;
   }
 
@@ -98,21 +102,17 @@ export class ListTeachersPage {
     this.activeFilter = filter;
   }
 
-  onEdit(id: number) {
-    this.router.navigate([`/update-teacher`, id]);
-  }
-
-  async onDelete(teacherId: number) {
+  async onDelete(studentId: number) {
     const alert = await this.alertController.create({
       header: 'Confirm Delete',
-      message: 'Are you sure you want to delete this teacher?',
+      message: 'Are you sure you want to delete this student?',
       buttons: [
         { text: 'Cancel', role: 'cancel' },
         {
           text: 'Delete',
           role: 'destructive',
           handler: async () => {
-            await this.deleteTeacher(teacherId);
+            await this.deleteStudent(studentId);
           },
         },
       ],
@@ -121,17 +121,20 @@ export class ListTeachersPage {
     await alert.present();
   }
 
-  private deleteTeacher(teacherId: number) {
-    this.teacherService.deleteTeacher(teacherId).subscribe({
-      next: () => this.loadTeachers(),
-      error: () => this.showErrorAlert(),
-    });
+  private async deleteStudent(studentId: number) {
+    try {
+      await this.studentService.deleteStudent(studentId).toPromise();
+      this.loadStudents(); // Refresh list
+    } catch (err) {
+      console.error('Error deleting student:', err);
+      this.showErrorAlert();
+    }
   }
 
   async showErrorAlert() {
     const alert = await this.alertController.create({
       header: 'Error',
-      message: 'Failed to delete teacher.',
+      message: 'Failed to delete student.',
       buttons: ['OK'],
     });
     await alert.present();
@@ -139,14 +142,8 @@ export class ListTeachersPage {
 
   getInitials(firstName: string, lastName: string): string {
     if (!firstName && !lastName) return '?';
-
     const firstInitial = firstName ? firstName.charAt(0).toUpperCase() : '';
     const lastInitial = lastName ? lastName.charAt(0).toUpperCase() : '';
-
     return `${firstInitial}${lastInitial}`;
-  }
-
-  addEnseignant() {
-    this.router.navigate(['/create-teacher']);
   }
 }

@@ -1,13 +1,16 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" class="back-button"></ion-back-button>
-    </ion-buttons>
-    <ion-title class="page-title">Create Teacher Account</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding form-content">
+  <div class="illustration-section">
+    <div class="lock-icon-container">
+      <ion-icon name="person-add-outline" class="lock-icon"></ion-icon>
+    </div>
+  </div>
+  <div class="title-section">
+    <h1>Create a New Teacher</h1>
+    <p>
+      Fill out the teacher’s profile details and assign their professional
+      information.
+    </p>
+  </div>
   <!-- Profile Information -->
   <div class="form-section">
     <ion-label class="section-title">Profile Information</ion-label>
@@ -92,14 +95,11 @@
           ></ion-datetime>
         </ng-template>
       </ion-modal>
-
-      <ion-text
-        color="medium"
-        *ngIf="teacher?.date_of_birth"
-        class="date-preview"
-      >
+      @if (teacher.date_of_birth) {
+      <ion-text color="medium" class="date-preview">
         You picked: {{ teacher.date_of_birth | date: 'fullDate' }}
       </ion-text>
+      }
     </div>
   </div>
 
@@ -158,11 +158,17 @@
         ></ion-icon>
         <ion-input
           name="password"
-          type="password"
+          [type]="passwordVisible ? 'text' : 'password'"
           [(ngModel)]="teacher.password"
           placeholder="Create a strong password"
           class="custom-input"
         ></ion-input>
+        <ion-icon
+          slot="end"
+          [name]="passwordVisible ? 'eye-off-outline' : 'eye-outline'"
+          (click)="togglePassword()"
+          class="input-icon"
+        ></ion-icon>
       </ion-item>
     </div>
 
@@ -176,11 +182,17 @@
         ></ion-icon>
         <ion-input
           name="confirm_password"
-          type="password"
+          [type]="confirmPasswordVisible ? 'text' : 'password'"
           [(ngModel)]="confirm_password"
           placeholder="Re-enter your password"
           class="custom-input"
         ></ion-input>
+        <ion-icon
+          slot="end"
+          [name]="confirmPasswordVisible ? 'eye-off-outline' : 'eye-outline'"
+          (click)="toggleConfirmPassword()"
+          class="input-icon"
+        ></ion-icon>
       </ion-item>
     </div>
   </div>

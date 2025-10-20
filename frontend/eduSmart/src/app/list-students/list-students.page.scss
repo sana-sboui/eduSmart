@@ -73,37 +73,6 @@
   font-weight: 500;
 }
 
-.title-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
-
-  h2 {
-    font-size: 1.5rem;
-    margin: 0;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.5px;
-  }
-
-  p {
-    margin: 0.25rem 0 0 0;
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 400;
-  }
-}
-
-.header-add-btn {
-  --padding-start: 8px;
-  --padding-end: 8px;
-
-  ion-icon {
-    font-size: 1.75rem;
-  }
-}
-
 ion-searchbar {
   margin-top: -38px;
   --background: #ffffff;
@@ -329,6 +298,11 @@ ion-fab-button {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.student-avatar .avatar.selected {
+  border: 2px solid #3880ff;
+  transform: scale(1.05);
 }
 
 .student-avatar .avatar:hover {

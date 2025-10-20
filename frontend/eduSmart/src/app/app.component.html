@@ -4,30 +4,27 @@
     <app-menu (logout)="logout()"></app-menu>
 
     <div id="main-content" class="ion-page">
-      <!-- <ion-header>
-        <ion-toolbar color="primary">
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-          <ion-title>SmartEdu</ion-title>
-        </ion-toolbar>
-      </ion-header> -->
       <ion-header>
-        <ion-toolbar class="custom-toolbar">
+        <ion-toolbar class="edusmart-toolbar tinted">
           <ion-buttons slot="start">
-            <ion-menu-button class="menu-icon"></ion-menu-button>
+            <ion-back-button defaultHref="/" text="" class="edusmart-back-btn">
+            </ion-back-button>
           </ion-buttons>
 
-          <ion-title>
-            <div class="title-content ion-margin-top">
+          <ion-title class="edusmart-title">
+            <div class="title-content logo-section">
               <img
                 src="assets/logo/logo2_withoutBG.png"
                 alt="SmartEdu Logo"
                 class="logo"
               />
-              <!-- <span class="app-name">SmartEdu</span> -->
             </div>
           </ion-title>
+          <ion-buttons slot="end">
+            <ion-menu-button
+              class="menu-icon edusmart-menu-btn"
+            ></ion-menu-button>
+          </ion-buttons>
         </ion-toolbar>
       </ion-header>
 

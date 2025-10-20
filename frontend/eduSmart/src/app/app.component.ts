@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {
   IonApp,
+  IonBackButton,
   IonButtons,
   IonContent,
   IonHeader,
@@ -14,6 +15,7 @@ import { Auth } from './services/auth/auth';
 import { Router } from '@angular/router';
 import { User } from './models/user.models';
 import { CommonModule } from '@angular/common';
+import { IonBackdrop } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +31,7 @@ import { CommonModule } from '@angular/common';
     IonButtons,
     IonTitle,
     IonMenuButton,
+    IonBackButton,
   ],
 })
 export class AppComponent {
