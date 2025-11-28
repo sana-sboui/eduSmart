@@ -1,24 +1,20 @@
 <ion-content [fullscreen]="true" class="content">
   <div id="form-container" class="form-container">
 
-    <!-- Illustration Section -->
-
     <div class="illustration-section">
       <div class="upload-icon-container">
-        <ion-icon name="cloud-upload-outline" class="upload-icon"></ion-icon>
+        <ion-icon name="create-outline" class="upload-icon"></ion-icon>
       </div>
     </div>
 
-    <!-- Title Section -->
     <div class="title-section">
-      <h1>Upload New Course</h1>
-      <p>Share your knowledge by uploading course materials for your students</p>
+      <h1>Update Course</h1>
+      <p>Edit your existing course details and files</p>
     </div>
 
-    <!-- Form Section -->
-    <form [formGroup]="courseForm" class="form-section" (ngSubmit)="uploadCourse()">
+    <form [formGroup]="courseForm" class="form-section" (ngSubmit)="updateCourse()">
 
-      <!-- Course Name Card -->
+      <!-- Nom du cours -->
       <ion-card class="input-card">
         <ion-card-content>
           <div class="field-label">
@@ -31,14 +27,14 @@
             <ion-input 
               type="text" 
               formControlName="title"
-              placeholder="e.g., Introduction to Web Development"
+              placeholder="Enter course title"
               class="custom-input">
             </ion-input>
           </ion-item>
         </ion-card-content>
       </ion-card>
 
-      <!-- Description Card -->
+      <!-- Description -->
       <ion-card class="input-card">
         <ion-card-content>
           <div class="field-label">
@@ -50,7 +46,7 @@
           <ion-item lines="none" class="input-wrapper">
             <ion-textarea 
               formControlName="description"
-              placeholder="Provide a brief description of the course content..."
+              placeholder="Edit your course description..."
               rows="4"
               class="custom-textarea">
             </ion-textarea>
@@ -58,7 +54,7 @@
         </ion-card-content>
       </ion-card>
 
-      <!-- Version mobile redesignée -->
+      <!-- Upload -->
       <div class="mobile-upload-section">
         <div class="upload-button-mobile" (click)="triggerFileInput()">
           <div class="upload-button-content">
@@ -66,19 +62,9 @@
               <ion-icon name="cloud-upload-outline" class="upload-button-icon"></ion-icon>
             </div>
             <div class="upload-button-text">
-              <div class="upload-title">Select Course File</div>
-              <div class="upload-subtitle">Tap to choose from your device</div>
+              <div class="upload-title">Select New File (Optional)</div>
+              <div class="upload-subtitle">Keep empty to retain old file</div>
             </div>
-            <div class="upload-arrow">
-              <ion-icon name="chevron-forward-outline"></ion-icon>
-            </div>
-          </div>
-          <div class="integrated-formats">
-            <span class="format-badge">PDF</span>
-            <span class="format-badge">DOC</span>
-            <span class="format-badge">MP4</span>
-            <span class="format-badge">PPT</span>
-            <span class="format-badge">ZIP</span>
           </div>
         </div>
 
@@ -98,37 +84,10 @@
               <ion-icon name="close-outline"></ion-icon>
             </button>
           </div>
-         
-
-
-          <div class="upload-progress" *ngIf="loading">
-            <div class="progress-header">
-              <span class="progress-text">Uploading...</span>
-              <span class="progress-percentage">{{ uploadProgress }}%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" [style.width.%]="uploadProgress"></div>
-            </div>
-          </div>
         </div>
-
-        
       </div>
-      <div class="format-info" *ngIf="!selectedFile">
-          <ion-icon name="information-circle-outline" class="info-icon"></ion-icon>
-          <span>All common file types supported up to 50MB</span>
-        </div>
-
-      <input 
-        type="file" 
-        #fileInput 
-        style="display: none" 
-        (change)="onFileSelected($event)"
-        accept=".pdf,.doc,.docx,.mp4,.avi,.mov,.ppt,.pptx,.txt,.zip">
-
-      
-      <!-- Group Selection -->
-            <ion-card class="input-card">
+      <!-- Sélection des groupes -->
+<ion-card class="input-card">
   <ion-card-content>
     <div class="field-label">
       <div class="icon-wrapper">
@@ -142,45 +101,36 @@
         placeholder="Choose group(s)"
         formControlName="groups"
         interface="popover"
-        #groupsSelect>
-        <ion-select-option *ngFor="let g of groups" [value]="g.id">
+        >
+        <ion-select-option *ngFor="let g of groups" [value]="+g.id">
           {{ g.name }}
         </ion-select-option>
       </ion-select>
-      <!-- Badge pour afficher le nombre de groupes sélectionnés -->
-      <div class="selection-count" *ngIf="groupsSelect.value?.length > 0">
-        {{ groupsSelect.value.length }}
+
+      <!-- Badge doré -->
+      <div class="selection-count" *ngIf="courseForm.value.groups?.length > 0">
+        {{ courseForm.value.groups.length }}
       </div>
-    </ion-item>     
+    </ion-item>
   </ion-card-content>
 </ion-card>
-        <div class="format-info" *ngIf="groupsSelect.value?.length === 0">
-          <ion-icon name="information-circle-outline" class="info-icon"></ion-icon>
-          <span>Select one or more groups for this content</span>
-        </div>
-        <!-- Confirmation Message -->
-      <div class="confirmation-section">
-        <div class="confirmation-icon">ℹ</div>
-        <div class="confirmation-text">Your course will be available to students immediately after upload</div>
-      </div>
-      <!-- Action Buttons -->
-      <div class="action-buttons">
-        <ion-button 
-          expand="block" 
-          type="submit"
-          class="submit-button" 
-          color="primary">
-          Upload Course
-        </ion-button>
 
-        <ion-button 
-          expand="block" 
-          fill="outline" 
-          (click)="cancel()"
-          class="btn-secondary">
+      <input 
+        type="file" 
+        #fileInput 
+        style="display: none" 
+        (change)="onFileSelected($event)"
+        accept=".pdf,.doc,.docx,.mp4,.avi,.mov,.ppt,.pptx,.txt,.zip">
+
+      <div class="action-buttons">
+        <ion-button expand="block" type="submit" class="submit-button" color="primary">
+          Update Course
+        </ion-button>
+        <ion-button expand="block" fill="outline" (click)="cancel()" class="btn-secondary">
           Cancel
         </ion-button>
       </div>
+
     </form>
   </div>
 </ion-content>

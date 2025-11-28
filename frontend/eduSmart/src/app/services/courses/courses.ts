@@ -36,13 +36,19 @@ export class CoursesService {
 
   // update cours
   updateCourse(id: number, course: Course): Observable<Course> {
-    const formData = new FormData();
-    formData.append('title', course.title);
-    if (course.description) formData.append('description', course.description);
-    if (course.file instanceof File) formData.append('file', course.file);
-    //course.groups.forEach(g => formData.append('groups', g.toString()));
-    return this.http.put<Course>(`${this.apiUrl}${id}/`, formData);
+  const formData = new FormData();
+  
+  if (course.title) formData.append('title', course.title);
+  if (course.description) formData.append('description', course.description);
+  if (course.file instanceof File) {
+    formData.append('file', course.file);
   }
+
+  course.groups?.forEach(g => formData.append('groups', Number(g).toString()));
+
+
+  return this.http.patch<Course>(`${this.apiUrl}${id}/`, formData);
+}
 
   // delete
   deleteCourse(id: number): Observable<any> {

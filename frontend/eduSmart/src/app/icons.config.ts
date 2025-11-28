@@ -47,6 +47,9 @@ import {
   chatbubbleEllipsesOutline,
   settingsOutline,
   gridOutline,
+  helpCircleOutline,
+  helpCircle,
+  time,
 } from 'ionicons/icons';
 
 export function registerIcons() {
@@ -99,6 +102,9 @@ export function registerIcons() {
     'chevron-down': chevronDown,
     'chatbubble-ellipses-outline': chatbubbleEllipsesOutline,
     'settings-outline': settingsOutline,
-    'grid-outline': gridOutline
+    'grid-outline': gridOutline,
+    'help-circle-outline':helpCircleOutline,
+    'help-circle':helpCircle,
+    'time':time,
   });
 }

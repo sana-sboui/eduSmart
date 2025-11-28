@@ -91,6 +91,10 @@ export class MenuComponent {
     this.router.navigate([url]);
     this.setActiveItem(url);
   }
+  navigateToCourses(){
+    this.router.navigate(['/cours-liste']);
+    this.setActiveItem('/cours-liste');
+  }
 
   navigateToProfile() {
     this.router.navigate(['/profile']);

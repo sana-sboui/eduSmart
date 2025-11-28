@@ -1,0 +1,75 @@
+
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    
+   
+
+    <!-- Page Title -->
+    <h1 class="page-title">Quiz Results</h1>
+    <p class="page-subtitle">Web Development Fundamentals - October 15, 2024</p>
+
+    <!-- Global Performance -->
+    <div class="global-performance">
+      <div class="performance-header">
+        <div class="performance-title">Class Average Performance</div>
+        <div class="performance-percentage">{{ stats.classAverage }}%</div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" [style.width.%]="stats.classAverage"></div>
+      </div>
+    </div>
+
+    <!-- Students Section -->
+    <div class="students-section">
+      <div class="section-header">
+        <div class="section-title">Student Results</div>
+        <ion-select 
+          class="sort-dropdown" 
+          [value]="sortBy" 
+          (ionChange)="onSortChange($event)"
+          interface="action-sheet">
+          <ion-select-option value="name">Sort by Name</ion-select-option>
+          <ion-select-option value="score-desc">Sort by Score (High to Low)</ion-select-option>
+          <ion-select-option value="score-asc">Sort by Score (Low to High)</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="student-list">
+        <div *ngFor="let student of sortedStudents" class="student-item">
+          <div class="student-header">
+            <div class="student-info">
+              <div class="student-avatar">{{ getInitials(student.name) }}</div>
+              <div class="student-details">
+                <div class="student-name">{{ student.name }}</div>
+                <div class="student-meta">{{ student.email }}</div>
+              </div>
+            </div>
+            <div class="student-score">
+              <div class="score-percentage" [class]="getScoreClass(calculatePercentage(student.correct, student.total))">
+                {{ calculatePercentage(student.correct, student.total) }}%
+              </div>
+              <div class="score-label">{{ student.correct }}/{{ student.total }} correct</div>
+            </div>
+          </div>
+          
+          <div class="student-progress">
+            <div class="answer-stat">
+              <ion-icon name="checkmark" color="success" class="stat-icon-small"></ion-icon>
+              <span class="stat-text">Correct: <span class="stat-value-small">{{ student.correct }}</span></span>
+            </div>
+            <div class="answer-stat">
+              <ion-icon name="close" color="danger" class="stat-icon-small"></ion-icon>
+              <span class="stat-text">Incorrect: <span class="stat-value-small">{{ student.incorrect }}</span></span>
+            </div>
+            <div class="progress-mini">
+              <div class="progress-bar-mini">
+                <div class="progress-fill-mini" [style.width.%]="calculatePercentage(student.correct, student.total)"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

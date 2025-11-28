@@ -88,6 +88,19 @@ export const routes: Routes = [
     path: 'cours-group/:id',
     loadComponent: () => import('./cours-group/cours-group.page').then( m => m.CoursGroupPage)
   },
+  {
+    path: 'cours-edit/:id',
+    loadComponent: () => import('./cours-edit/cours-edit.page').then( m => m.CoursEditPage)
+  },  {
+    path: 'quiz',
+    loadComponent: () => import('./quiz/quiz.page').then( m => m.QuizPage)
+  },
+  {
+    path: 'result-quiz',
+    loadComponent: () => import('./result-quiz/result-quiz.page').then( m => m.ResultQuizPage)
+  },
+
+
 
 ];
 

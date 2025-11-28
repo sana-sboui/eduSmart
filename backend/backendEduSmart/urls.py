@@ -40,6 +40,7 @@ urlpatterns = [
     path('accounts/', include("accounts.urls")),
     path('', include("group.urls")),
     path('cours/', include('course.urls')),
+     path('quiz/', include('quiz.urls')),
     
 ]
 if settings.DEBUG:
