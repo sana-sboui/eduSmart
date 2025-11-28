@@ -1,0 +1,106 @@
+<ion-content [fullscreen]="true" class="content">
+
+  <div id="form-container" class="form-container">
+    <div class="illustration-section">
+      <div class="lock-icon-container">
+        <ion-icon name="help-circle-outline" class="lock-icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Title Section -->
+   <div class="title-section">
+  <h1>Course Quiz</h1>
+  <p>Test your knowledge and measure your progress</p>
+</div>
+
+    <!-- QUIZ CARD -->
+    <div class="quiz-card">
+
+      <!-- Quiz Header (conservé mais déplacé sous le vrai header) -->
+      <div class="quiz-header">
+        <h2 class="quiz-title">{{ quiz?.title }}</h2>
+
+        <div class="quiz-meta">
+          <div class="meta-item">
+            <ion-icon name="help-circle" class="meta-icon"></ion-icon>
+            {{ quizData.length }} Questions
+          </div>
+          <div class="meta-item">
+            <ion-icon name="time" class="meta-icon"></ion-icon>
+            15 minutes
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-body">
+        <div *ngIf="quizResult" class="result-card">
+          <div class="result-score">{{ quizResult.percentage }}%</div>
+          <div class="result-text">
+            You scored {{ quizResult.correctAnswers }} out of {{ quizResult.totalQuestions }} questions correctly!
+          </div>
+
+          <div class="result-details">
+            <div class="result-item">
+              <div class="result-value">{{ quizResult.correctAnswers }}</div>
+              <div class="result-label">Correct</div>
+            </div>
+            <div class="result-item">
+              <div class="result-value">
+                {{ quizResult.totalQuestions - quizResult.correctAnswers }}
+              </div>
+              <div class="result-label">Incorrect</div>
+            </div>
+            <div class="result-item">
+              <div class="result-value">{{ quizResult.percentage }}%</div>
+              <div class="result-label">Score</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUESTIONS -->
+        <div *ngFor="let question of quizData" 
+            class="question-card"
+            [class.correct]="quizSubmitted && getQuestionStatus(question.id) === 'correct'"
+            [class.incorrect]="quizSubmitted && getQuestionStatus(question.id) === 'incorrect'">
+
+          <div class="question-header">
+            <div class="question-number">{{ question.id }}</div>
+            <div class="question-text">{{ question.text }}</div>
+          </div>
+
+          <div class="options-list">
+            <div *ngFor="let option of question.options"
+                class="option-item"
+                [class.selected]="isOptionSelected(question.id, option.id)"
+                [class.correct]="isOptionCorrect(question.id, option.id)"
+                [class.incorrect]="isOptionIncorrect(question.id, option.id)"
+                (click)="selectOption(question.id, option.id)">
+              
+              <div class="option-radio"></div>
+              <div class="option-text">{{ option.text }}</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="quiz-actions">
+        <ion-button fill="outline" class="btn-secondary" (click)="resetQuiz()">
+          <ion-icon name="refresh" slot="start"></ion-icon>
+          Reset
+        </ion-button>
+        
+        <ion-button fill="solid"
+                    class="btn-primary"
+                    [disabled]="!allQuestionsAnswered || quizSubmitted"
+                    (click)="submitQuiz()">
+          <ion-icon name="checkmark" slot="start"></ion-icon>
+          {{ quizSubmitted ? 'Quiz Completed' : 'Submit Quiz' }}
+        </ion-button>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

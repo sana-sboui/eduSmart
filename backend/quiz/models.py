@@ -28,10 +28,22 @@ class Option(models.Model):
     text = models.CharField(max_length=200)
     isCorrect = models.BooleanField(default=False)
 
-class ReponseStudent(models.Model):
+class StudentQuizResult(models.Model):
     id = models.AutoField(primary_key=True)
-    student = models.ForeignKey("accounts.Student", on_delete=models.CASCADE, related_name="reponses")
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="reponses")
-    option = models.ForeignKey(Option, on_delete=models.SET_NULL, null=True, blank=True)
-    texte_libre = models.TextField(blank=True, null=True)
+    student = models.ForeignKey(
+        "accounts.Student", 
+        on_delete=models.CASCADE, 
+        related_name="quiz_results"
+    )
+    quiz = models.ForeignKey(
+        "quiz.Quiz", 
+        on_delete=models.CASCADE, 
+        related_name="student_results"
+    )
+    correct_answers = models.PositiveIntegerField(default=0)
+    incorrect_answers = models.PositiveIntegerField(default=0)
+    percentage = models.DecimalField(max_digits=5, decimal_places=2)  
     submission_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('student', 'quiz') 

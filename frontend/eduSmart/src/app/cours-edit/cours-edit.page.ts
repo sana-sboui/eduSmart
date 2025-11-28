@@ -99,7 +99,6 @@ export class CoursEditPage implements OnInit {
         this.groups = res;
         console.log('Groups loaded:', this.groups);
 
-        // Load course only after groups are loaded
         if (this.courseId) this.loadCourse(this.courseId);
       },
       error: (err) => console.error(err)
@@ -111,8 +110,6 @@ loadCourse(id: number) {
     next: (course: Course) => {
       this.currentCourse = course;
       const selectedGroupIds = course.groups ? course.groups.map(g => Number(g)) : [];
-
-      // Patch the form **after groups are loaded**
       this.courseForm.patchValue({
         title: course.title,
         description: course.description,

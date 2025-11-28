@@ -98,6 +98,7 @@
           </ion-menu-toggle>
         </ion-list>
       </ng-container>
+      
 
       <!-- GROUPS SECTION for non-admin users -->
       <ng-container *ngIf="user.role !== 'ADMIN'">
@@ -165,6 +166,22 @@
         </ion-list>
       </ng-container>
 
+      <div class="nav-section-title" style="display: flex; align-items: center;" *ngIf="user.role == 'ENSEIGNANT'">
+        <ion-icon name="settings-outline" style="font-size: 20px; margin-right: 8px;"></ion-icon>COURSES
+      </div>
+      <ion-list lines="none" class="menu-list" *ngIf="user.role == 'ENSEIGNANT'">
+        <ion-menu-toggle auto-hide="false">
+          <ion-item
+            button
+            class="nav-item"
+            (click)="navigateToCourses()"
+            style="--padding-start: 40px;"
+          >
+            <span class="nav-label">Course</span>
+          </ion-item>
+        </ion-menu-toggle>
+        
+      </ion-list>
       <!-- ACCOUNT SECTION -->
       <div class="nav-section-title" style="display: flex; align-items: center;">
         <ion-icon name="settings-outline" style="font-size: 20px; margin-right: 8px;"></ion-icon>ACCOUNT

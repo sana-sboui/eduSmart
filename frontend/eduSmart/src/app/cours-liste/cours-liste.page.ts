@@ -47,6 +47,9 @@ export class CoursListePage implements OnInit {
     private alertController: AlertController,
     private authService: Auth
   ) {}
+  ionViewWillEnter() {
+    this.loadCourses();
+  }
   ngOnInit() {
     this.loadCourses();
   }
@@ -68,7 +71,7 @@ export class CoursListePage implements OnInit {
   async onDelete(course: Course) {
     const alert = await this.alertController.create({
       header: 'Confirm Delete',
-      message: `Are you sure you want to delete the course <strong>"${course.title}"</strong>?`,
+      message: `Are you sure you want to delete the course ${course.title}?`,
       buttons: [
         { text: 'Cancel', role: 'cancel' },
         {
