@@ -12,10 +12,12 @@ import {
 } from '@ionic/angular/standalone';
 import { MenuComponent } from './components/menu/menu.component';
 import { Auth } from './services/auth/auth';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { User } from './models/user.models';
 import { CommonModule } from '@angular/common';
 import { IonBackdrop } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +38,13 @@ import { IonBackdrop } from '@ionic/angular';
 })
 export class AppComponent {
   user: User | null = null;
-  constructor(private authService: Auth, private router: Router) {}
+  constructor(
+    private authService: Auth,
+    private router: Router,
+    private http: HttpClient
+  ) {
+    this.trackPageLoads();
+  }
 
   ngOnInit() {
     this.user = this.authService.getLoggedInUser();
@@ -55,5 +63,17 @@ export class AppComponent {
   logout() {
     this.authService.logout();
     this.router.navigate(['/auth']);
+  }
+
+  trackPageLoads() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        // Send request to backend on every page load/navigation
+        this.http.post('https://localhost:8000/api/track/', {}).subscribe({
+          next: () => console.log('Frontend event sent'),
+          error: (err) => console.error('Track error:', err),
+        });
+      });
   }
 }
